@@ -170,7 +170,7 @@
     <comment>Text to show on withdraw button in Request submitted card.</comment>
   </data>
   <data name="WithdrawText" xml:space="preserve">
-    <value>Your request #{0} has been withdrawn. If other problem comes up, make a new request. </value>
+    <value>You have withdrawn the chat session #{0}. If you encounter any other problems, please raise a new request.</value>
     <comment>Text to show End User Notification when requets is submitted.</comment>
   </data>
   <data name="Yes" xml:space="preserve">
@@ -250,7 +250,7 @@
     <comment>Text to show in change status dropdown choice in request details card.</comment>
   </data>
   <data name="EndUserNotificationText" xml:space="preserve">
-    <value>The support team has received your request #{0}.</value>
+    <value>We have received your request with session #{0}</value>
     <comment>Text to show EndUser notification when request is submitted.</comment>
   </data>
   <data name="SmeAssignedStatus" xml:space="preserve">
@@ -306,11 +306,11 @@
     <comment>Generic error message.</comment>
   </data>
   <data name="AssignedTicketUserNotification" xml:space="preserve">
-    <value>The support team picked up your request #{0}. A specialist will contact you soon.</value>
+    <value>Your chat session #{0} has been picked up from the queue. A specialist will chat with you soon.</value>
     <comment>Text to show notification for user when ticket is assigned to expert team.</comment>
   </data>
   <data name="ClosedTicketUserNotification" xml:space="preserve">
-    <value>This request with ticket number #{0} is resolved. Make a new request if you still need help.</value>
+    <value>This chat session #{0} has ended. Please raise a new request if you still need help.</value>
     <comment>Text to show user notification message when ticket is closed by Expert Team.</comment>
   </data>
   <data name="EscalateButtonText" xml:space="preserve">
@@ -322,7 +322,7 @@
     <comment>Text to show user when status of ticket is reopened by Expert team member.</comment>
   </data>
   <data name="RequestActionTicketUserNotification" xml:space="preserve">
-    <value>The support team changed the severity level on your request #{0}.</value>
+    <value>The severity level on your request #{0} has been updated.</value>
     <comment>Text to show user when severity of ticket is changed by Expert team member.</comment>
   </data>
   <data name="DateValidationText" xml:space="preserve">
@@ -406,7 +406,7 @@
     <comment>Text to show bot description in welcome card for Sme.</comment>
   </data>
   <data name="ClosedErrorMessage" xml:space="preserve">
-    <value>This request is closed and cannot be edited</value>
+    <value>This chat session has ended and cannot be edited further.</value>
     <comment>Text to show when user want to edit closed request.</comment>
   </data>
   <data name="DescriptionText" xml:space="preserve">
@@ -414,7 +414,7 @@
     <comment>Text to show description in request submitted card.</comment>
   </data>
   <data name="RequestNumberText" xml:space="preserve">
-    <value>Request number</value>
+    <value>Session Number</value>
     <comment>Text to show as request number in new request card.</comment>
   </data>
   <data name="RequestTypeText" xml:space="preserve">
