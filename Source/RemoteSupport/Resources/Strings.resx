@@ -410,7 +410,7 @@
     <comment>Text to show when user want to edit closed request.</comment>
   </data>
   <data name="DescriptionText" xml:space="preserve">
-    <value>Details</value>
+    <value>Details (Max 500 Characters)</value>
     <comment>Text to show description in request submitted card.</comment>
   </data>
   <data name="RequestNumberText" xml:space="preserve">
@@ -422,7 +422,7 @@
     <comment>Text to show request type in request submitted card.</comment>
   </data>
   <data name="TitleDisplayText" xml:space="preserve">
-    <value>What is it about?</value>
+    <value>What is it about? (Max 100 Characters)</value>
     <comment>Text to show as title text in new request card.</comment>
   </data>
   <data name="WithdrawErrorMessage" xml:space="preserve">
