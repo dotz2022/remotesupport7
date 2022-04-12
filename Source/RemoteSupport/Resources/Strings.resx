@@ -310,7 +310,7 @@
     <comment>Text to show notification for user when ticket is assigned to expert team.</comment>
   </data>
   <data name="ClosedTicketUserNotification" xml:space="preserve">
-    <value>Our specialist has reached out to you via direct chat to assist you further.</value>
+    <value>Our specialist has reached out to you via direct chat to assist you further. Please assist to help us on the following survery <A HREF="https://forms.office.com/Pages/ResponsePage.aspx?id=1k_SlcVagUCFNNIiMHZEQbOp7VK4-01HrA1-XKAO77xUQlVaR0oyTUZPTVhPNkZLQzEyNTJEMjBQUi4u">Feedback</A></value>
     <comment>Text to show user notification message when ticket is closed by Expert Team.</comment>
   </data>
   <data name="EscalateButtonText" xml:space="preserve">
