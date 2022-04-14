@@ -86,7 +86,7 @@
             <xsd:complexType>
               <xsd:sequence>
                 <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="feedback" xlink:type="simple xlink:href="https://forms.office.com/r/rcq4h2yP9g" />
+                <xsd:element name="feedback" xlink:type="simple" xlink:href="https://forms.office.com/r/rcq4h2yP9g" />
                 <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
               </xsd:sequence>
               <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
