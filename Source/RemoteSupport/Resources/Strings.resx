@@ -72,7 +72,6 @@
               <xsd:attribute name="name" use="required" type="xsd:string" />
               <xsd:attribute name="type" type="xsd:string" />
               <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute name="feedback" xlink:type="simple" />
               <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
@@ -86,7 +85,6 @@
             <xsd:complexType>
               <xsd:sequence>
                 <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="feedback" xlink:type="simple" xlink:href="https://forms.office.com/r/rcq4h2yP9g" />
                 <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
               </xsd:sequence>
               <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
@@ -99,7 +97,6 @@
             <xsd:complexType>
               <xsd:sequence>
                 <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="feedback" type="xsd:anyURI" minOccurs="0" msdata:Ordinal="1" />
               </xsd:sequence>
               <xsd:attribute name="name" type="xsd:string" use="required" />
             </xsd:complexType>
@@ -313,7 +310,7 @@
     <comment>Text to show notification for user when ticket is assigned to expert team.</comment>
   </data>
   <data name="ClosedTicketUserNotification" xml:space="preserve">
-    <value>Our specialist has reached out to you via direct chat to assist you further. Please assist to help on the feedback for us to improve on the TSD Chat (<feedback>Feedback</feedback>)</value>
+    <value>Our specialist has reached out to you via direct chat to assist you further. Please assist to help on the feedback for us to improve on the TSD Chat (&lt;a href="https://forms.office.com/r/rcq4h2yP9g"&gt;Feedback&lt;/a&gt;)</value>
     <comment>Text to show user notification message when ticket is closed by Expert Team.</comment>
   </data>
   <data name="EscalateButtonText" xml:space="preserve">
