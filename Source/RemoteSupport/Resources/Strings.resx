@@ -251,7 +251,7 @@
   </data>
   <data name="EndUserNotificationText" xml:space="preserve">
     <value>We have received your request with chat session #{0}. &lt;br/&gt;
-    &lt;p style="color:#BFC9CA;"&lt;Please note that request that comes in after TSD operating hours &lt;b&gt;(Mon-Fri 8am-8pm, Sat 8am-2pm)&lt;/b&gt; will be attended on the next business day.&lt;/p&gt;</value>
+    &lt;p style="color:#BFC9CA;"&gt;Please note that request that comes in after TSD operating hours &lt;b&gt;(Mon-Fri 8am-8pm, Sat 8am-2pm)&lt;/b&gt; will be attended on the next business day.&lt;/p&gt;</value>
     <comment>Text to show EndUser notification when request is submitted.</comment>
   </data>
   <data name="SmeAssignedStatus" xml:space="preserve">
