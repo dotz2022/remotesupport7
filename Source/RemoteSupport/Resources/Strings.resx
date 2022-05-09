@@ -250,7 +250,8 @@
     <comment>Text to show in change status dropdown choice in request details card.</comment>
   </data>
   <data name="EndUserNotificationText" xml:space="preserve">
-    <value>We have received your request with chat session #{0}</value>
+    <value>We have received your request with chat session #{0} &#xA;
+    Please Note that request that comes in after TSD operating hours (Mon-Fri 8am-8pm, Sat 8am-2pm) will be attended on the next business day.</value>
     <comment>Text to show EndUser notification when request is submitted.</comment>
   </data>
   <data name="SmeAssignedStatus" xml:space="preserve">
@@ -310,7 +311,7 @@
     <comment>Text to show notification for user when ticket is assigned to expert team.</comment>
   </data>
   <data name="ClosedTicketUserNotification" xml:space="preserve">
-    <value>Our specialist has reached out to you via direct chat to assist you further. Please assist to help on the feedback for us to improve on the TSD Chat (&lt;a href="https://forms.office.com/r/rcq4h2yP9g"&gt;Feedback&lt;/a&gt;)</value>
+    <value>Our specialist has reached out to you via direct chat to assist you further.</value>
     <comment>Text to show user notification message when ticket is closed by Expert Team.</comment>
   </data>
   <data name="EscalateButtonText" xml:space="preserve">
