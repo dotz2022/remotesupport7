@@ -84,21 +84,20 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Cards
                 {
                     Text = localizer.GetString("TellUsAboutProblemText"),
                     Spacing = AdaptiveSpacing.Small,
-                },  
+                },
                 new AdaptiveTextBlock()
                 {
-                    Text = localizer.GetString("staticDropdown"),
+                    Text = localizer.GetString("TitleDisplayText"),
                     Spacing = AdaptiveSpacing.Medium,
                 },
                 new AdaptiveTextInput()
                 {
                     Id = "Title",
                     MaxLength = 100,
-                    Placeholder = localizer.GetString("staticDropdownPlaceholder"),
+                    Placeholder = localizer.GetString("TitlePlaceHolderText"),
                     Spacing = AdaptiveSpacing.Small,
                     Value = issueTitle,
                 },
-                
                 new AdaptiveTextBlock()
                 {
                     Text = localizer.GetString("TitleValidationText"),
