@@ -158,7 +158,7 @@
     <comment>Text to show on the update button in adaptive card.</comment>
   </data>
   <data name="UrgentText" xml:space="preserve">
-    <value>Call back (non-urgent)</value>
+    <value>Call back</value>
     <comment>Text to show on the radio button when selected urgent.</comment>
   </data>
   <data name="WithdrawConfirmation" xml:space="preserve">
@@ -250,7 +250,8 @@
     <comment>Text to show in change status dropdown choice in request details card.</comment>
   </data>
   <data name="EndUserNotificationText" xml:space="preserve">
-    <value>We have received your request with chat session #{0}. &lt;br/&gt; &lt;p style="color:#95A5A6;"&gt;Please note that chat request that comes in after TSD operating hours &lt;b&gt;(Mon-Fri 8am-8pm, Sat 8am-2pm)&lt;/b&gt; will be attended on the next business day.&lt;/p&gt;  &lt;br/&gt; &lt;p style="font-style: italic;"&gt;Please note that call back sessions scheduled in the PM will be processed by the next business day.&lt;/p&gt;</value>
+    <value>We have received your request with chat session #{0}. </br> <p style="color:#95A5A6;"> Please note that chat requests that come in after TSD operating hours <b>(Mon-Fri 8am-8pm, Sat 8am-2pm)</b> will be attended on the next business day.</p>  
+    </br> <p style="font-style: italic;"> Please note that call back sessions that come in after 2pm will be attended on the next business day.</p></value>
     <comment>Text to show EndUser notification when request is submitted.</comment>
   </data>
   <data name="SmeAssignedStatus" xml:space="preserve">
@@ -422,7 +423,7 @@
     <comment>Text to show request type in request submitted card.</comment>
   </data>
   <data name="TitleDisplayText" xml:space="preserve">
-    <value>What is it about?</value>
+    <value>Contact Number</value>
     <comment>Text to show as title text in new request card.</comment>
   </data>
   <data name="WithdrawErrorMessage" xml:space="preserve">
@@ -442,7 +443,7 @@
     <comment>Text to show for button action.</comment>
   </data>
   <data name="DesciptionPlaceHolderText" xml:space="preserve">
-    <value>Describe the problem</value>
+    <value>Describe the problem and indicate a </value>
     <comment>Text to show in desciption place holder.</comment>
   </data>
   <data name="NewRequestTitle" xml:space="preserve">
@@ -458,7 +459,7 @@
     <comment>Text to show in card.</comment>
   </data>
   <data name="TitlePlaceHolderText" xml:space="preserve">
-    <value>Type here...</value>
+    <value>Provide contact number for call back.</value>
     <comment>Text to show in title place holder.</comment>
   </data>
   <data name="SessionExpired" xml:space="preserve">
