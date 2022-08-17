@@ -150,7 +150,6 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Cards
                     Value = !string.IsNullOrEmpty(ticketDetail?.RequestType) ? ticketDetail?.RequestType : Constants.NormalString,
                     Style = AdaptiveChoiceInputStyle.Expanded,
                 },
-                
             });
 
             dynamicElements.AddRange(ticketAdditionalFields);
