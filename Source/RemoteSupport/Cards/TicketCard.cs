@@ -84,7 +84,7 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Cards
                 {
                     Text = localizer.GetString("TellUsAboutProblemText"),
                     Spacing = AdaptiveSpacing.Small,
-                },
+                },  
                 new AdaptiveTextBlock()
                 {
                     Text = localizer.GetString("staticDropdown"),
@@ -98,6 +98,9 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Cards
                     Spacing = AdaptiveSpacing.Small,
                     Value = issueTitle,
                 },
+
+                dynamicElements.AddRange(ticketAdditionalFields);
+                
                 new AdaptiveTextBlock()
                 {
                     Text = localizer.GetString("TitleValidationText"),
@@ -153,7 +156,7 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Cards
                 
             });
 
-            dynamicElements.AddRange(ticketAdditionalFields);
+            
 
             AdaptiveCard ticketDetailsPersonalChatCard = new AdaptiveCard(Constants.AdaptiveCardVersion)
             {
