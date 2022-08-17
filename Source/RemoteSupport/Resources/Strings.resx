@@ -142,7 +142,7 @@
     <comment>Text to show in confirmation card.</comment>
   </data>
   <data name="NormalText" xml:space="preserve">
-    <value>Chat</value>
+    <value>Normal</value>
     <comment>Text to show on the radio button when selected normal.</comment>
   </data>
   <data name="RequestSubmittedContent" xml:space="preserve">
@@ -158,7 +158,7 @@
     <comment>Text to show on the update button in adaptive card.</comment>
   </data>
   <data name="UrgentText" xml:space="preserve">
-    <value>Callback (non-urgent)</value>
+    <value>Urgent</value>
     <comment>Text to show on the radio button when selected urgent.</comment>
   </data>
   <data name="WithdrawConfirmation" xml:space="preserve">
@@ -418,7 +418,7 @@
     <comment>Text to show as request number in new request card.</comment>
   </data>
   <data name="RequestTypeText" xml:space="preserve">
-    <value>Mode of Contact</value>
+    <value>Request type</value>
     <comment>Text to show request type in request submitted card.</comment>
   </data>
   <data name="TitleDisplayText" xml:space="preserve">
