@@ -250,7 +250,7 @@
     <comment>Text to show in change status dropdown choice in request details card.</comment>
   </data>
   <data name="EndUserNotificationText" xml:space="preserve">
-    <value>We have received your request with chat session #{0}. </br> <p style="color:#95A5A6;"> Please note that chat requests that come in after TSD operating hours <b>(Mon-Fri 8am-8pm, Sat 8am-2pm)</b> will be attended on the next business day.</p>  
+    <value>We have received your request with chat session #{0}. </br> <p style="font-style: italic;"> Please note that chat requests that come in after TSD operating hours <b>(Mon-Fri 8am-8pm, Sat 8am-2pm)</b> will be attended on the next business day.</p>  
     </br> <p style="font-style: italic;"> Please note that call back sessions that come in after 2pm will be attended on the next business day.</p></value>
     <comment>Text to show EndUser notification when request is submitted.</comment>
   </data>
