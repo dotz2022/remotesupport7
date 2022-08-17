@@ -1,4 +1,4 @@
-﻿// <copyright file="TicketCard.cs" company="Microsoft">
+// <copyright file="TicketCard.cs" company="Microsoft">
 // Copyright (c) Microsoft. All rights reserved.
 // </copyright>
 
@@ -87,14 +87,14 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Cards
                 },
                 new AdaptiveTextBlock()
                 {
-                    Text = localizer.GetString("TitleDisplayText"),
+                    Text = localizer.GetString("staticDropdown"),
                     Spacing = AdaptiveSpacing.Medium,
                 },
                 new AdaptiveTextInput()
                 {
                     Id = "Title",
                     MaxLength = 100,
-                    Placeholder = localizer.GetString("TitlePlaceHolderText"),
+                    Placeholder = localizer.GetString("staticDropdownPlaceholder"),
                     Spacing = AdaptiveSpacing.Small,
                     Value = issueTitle,
                 },
@@ -150,6 +150,7 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Cards
                     Value = !string.IsNullOrEmpty(ticketDetail?.RequestType) ? ticketDetail?.RequestType : Constants.NormalString,
                     Style = AdaptiveChoiceInputStyle.Expanded,
                 },
+                
             });
 
             dynamicElements.AddRange(ticketAdditionalFields);
