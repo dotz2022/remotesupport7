@@ -98,8 +98,6 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Cards
                     Spacing = AdaptiveSpacing.Small,
                     Value = issueTitle,
                 },
-
-                dynamicElements.AddRange(ticketAdditionalFields);
                 
                 new AdaptiveTextBlock()
                 {
@@ -156,7 +154,7 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Cards
                 
             });
 
-            
+            dynamicElements.AddRange(ticketAdditionalFields);
 
             AdaptiveCard ticketDetailsPersonalChatCard = new AdaptiveCard(Constants.AdaptiveCardVersion)
             {
