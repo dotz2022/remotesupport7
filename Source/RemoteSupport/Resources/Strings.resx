@@ -250,13 +250,12 @@
     <comment>Text to show in change status dropdown choice in request details card.</comment>
   </data>
   <data name="EndUserNotificationText" xml:space="preserve">
-    <value>We have received your request with chat session #{0}. </br> <p style="font-style: italic;"> (1) Chat requests received after TSD operating hours <b>(Mon-Fri 8am-8pm, Sat 8am-2pm)</b> will be attended on the next business day.</p>  
-    </br> <p style="font-style: italic;"> (2)Call back requests received after 2pm will be attended on the next business day.</p></value>
+    <value>&lt;br/&gt; &lt;p style="font-style: italic;"&gt;(1) Chat requests received after TSD operating hours &lt;b&gt;(Mon-Fri 8am-8pm, Sat 8am-2pm)&lt;/b&gt; will be attended on the next business day.&lt;/p&gt; &lt;br/&gt; &lt;p style="font-style: italic;"&gt;(2) Call back requests received after 2pm will be attended on the next business day.&lt;/p&gt;</value>
     <comment>Text to show EndUser notification when request is submitted.</comment>
   </data>
   <data name="SmeAssignedStatus" xml:space="preserve">
     <value>This request is now assigned to {0}.</value>
-    <comment>Text to show notification as assigned request is closed to SME Users.</comment>
+    <comment>Text to show notification as assigned request is closed to SME Users.</comment> 
   </data>
   <data name="SmeClosedStatus" xml:space="preserve">
     <value>Status changed to resolved by {0}.</value>
