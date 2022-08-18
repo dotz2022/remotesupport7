@@ -73,7 +73,7 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Cards
             ticketAdditionalFields = CardHelper.ConvertToAdaptiveCard(localizer, cardConfiguration.CardTemplate, showDateValidation);
 
             dynamicElements.AddRange(new List<AdaptiveElement>
-            { 
+            {
                 new AdaptiveTextBlock()
                 {
                     Text = localizer.GetString("RequestTypeText"),
@@ -86,18 +86,18 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Cards
                         new AdaptiveChoice
                         {
                             Title = localizer.GetString("NormalText"),
-                            Value = Constants.NormalString, 
+                            Value = Constants.NormalString,
                         },
                         new AdaptiveChoice
                         {
                             Title = localizer.GetString("UrgentText"),
                             Value = Constants.UrgentString,
                         },
-                    }, 
+                    },
                     Id = "RequestType",
                     Value = !string.IsNullOrEmpty(ticketDetail?.RequestType) ? ticketDetail?.RequestType : Constants.NormalString,
-                    Style = AdaptiveChoiceInputStyle.Compact,    
-                },                         
+                    Style = AdaptiveChoiceInputStyle.Compact,
+                },
                 new AdaptiveTextBlock
                 {
                     Text = localizer.GetString("NewRequestTitle"),
