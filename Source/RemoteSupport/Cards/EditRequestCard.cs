@@ -1,4 +1,4 @@
-﻿// <copyright file="EditRequestCard.cs" company="Microsoft">
+// <copyright file="EditRequestCard.cs" company="Microsoft">
 // Copyright (c) Microsoft. All rights reserved.
 // </copyright>
 
@@ -137,6 +137,25 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Cards
                     },
                     Id = "RequestType",
                     Value = !string.IsNullOrEmpty(ticketDetail?.RequestType) ? ticketDetail?.RequestType : Constants.NormalString,
+                    Style = AdaptiveChoiceInputStyle.Expanded,
+                },
+                 new AdaptiveChoiceSetInput
+                {
+                    Choices = new List<AdaptiveChoice>
+                    {
+                        new AdaptiveChoice
+                        {
+                            Title = localizer.GetString("Request"),
+                            Value = Constants.RequestString,
+                        },
+                        new AdaptiveChoice
+                        {
+                            Title = localizer.GetString("Change"),
+                            Value = Constants.ChangeString,
+                        },
+                    },
+                    Id = "Type",
+                    Value = !string.IsNullOrEmpty(ticketDetail?.Type) ? ticketDetail?.Type : Constants.RequestString,
                     Style = AdaptiveChoiceInputStyle.Expanded,
                 },
             });
