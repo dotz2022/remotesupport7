@@ -1,646 +1,515 @@
-// <copyright file="CardHelper.cs" company="Microsoft">
-// Copyright (c) Microsoft. All rights reserved.
-// </copyright>
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
 
-namespace Microsoft.Teams.Apps.RemoteSupport.Helpers
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Globalization;
-    using System.Linq;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using AdaptiveCards;
-    using Microsoft.Bot.Builder;
-    using Microsoft.Bot.Connector.Authentication;
-    using Microsoft.Bot.Schema;
-    using Microsoft.Bot.Schema.Teams;
-    using Microsoft.Extensions.Caching.Memory;
-    using Microsoft.Extensions.Localization;
-    using Microsoft.Extensions.Logging;
-    using Microsoft.Teams.Apps.RemoteSupport.Cards;
-    using Microsoft.Teams.Apps.RemoteSupport.Common;
-    using Microsoft.Teams.Apps.RemoteSupport.Common.Models;
-    using Microsoft.Teams.Apps.RemoteSupport.Common.Providers;
-    using Microsoft.Teams.Apps.RemoteSupport.Models;
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Linq;
-
-    /// <summary>
-    /// Class that handles the card configuration.
-    /// </summary>
-    public static class CardHelper
-    {
-        /// <summary>
-        /// Task module height.
-        /// </summary>
-        private const int TaskModuleHeight = 460;
-
-        /// <summary>
-        /// Represents the task module width.
-        /// </summary>
-        private const int TaskModuleWidth = 600;
-
-        /// <summary>
-        /// Task module height.
-        /// </summary>
-        private const int ErrorMessageTaskModuleHeight = 100;
-
-        /// <summary>
-        /// Represents the task module width.
-        /// </summary>
-        private const int ErrorMessageTaskModuleWidth = 400;
-
-        /// <summary>
-        /// Update request card in end user conversation.
-        /// </summary>
-        /// <param name="turnContext">Context object containing information cached for a single turn of conversation with a user.</param>
-        /// <param name="endUserUpdateCard"> End user request details card which is to be updated in end user conversation.</param>
-        /// <returns>A task that represents the work queued to execute.</returns>
-        public static async Task<bool> UpdateRequestCardForEndUserAsync(ITurnContext turnContext, IMessageActivity endUserUpdateCard)
-        {
-            if (endUserUpdateCard != null)
-            {
-                endUserUpdateCard.Id = turnContext?.Activity.ReplyToId;
-                endUserUpdateCard.Conversation = turnContext.Activity.Conversation;
-                await turnContext.UpdateActivityAsync(endUserUpdateCard);
-                return true;
-            }
-            else
-            {
-                throw new Exception("Error while updating card in end user conversation.");
-            }
-        }
-
-        /// <summary>
-        /// Get task module response.
-        /// </summary>
-        /// <param name="applicationBasePath">Represents the Application base Uri.</param>
-        /// <param name="customAPIAuthenticationToken">JWT token.</param>
-        /// <param name="telemetryInstrumentationKey">The Application Insights telemetry client instrumentation key.</param>
-        /// <param name="activityId">Task module activity Id.</param>
-        /// <param name="localizer">The current cultures' string localizer.</param>
-        /// <returns>Returns task module response.</returns>
-        public static TaskModuleResponse GetTaskModuleResponse(string applicationBasePath, string customAPIAuthenticationToken, string telemetryInstrumentationKey, string activityId, IStringLocalizer<Strings> localizer)
-        {
-            return new TaskModuleResponse
-            {
-                Task = new TaskModuleContinueResponse
-                {
-                    Value = new TaskModuleTaskInfo()
-                    {
-                        Url = $"{applicationBasePath}/manage-experts?token={customAPIAuthenticationToken}&telemetry={telemetryInstrumentationKey}&activityId={activityId}&theme={{theme}}&locale={{locale}}",
-                        Height = TaskModuleHeight,
-                        Width = TaskModuleWidth,
-                        Title = localizer.GetString("ManageExpertsTitle"),
-                    },
-                },
-            };
-        }
-
-        /// <summary>
-        /// Gets edit ticket details adaptive card.
-        /// </summary>
-        /// <param name="cardConfigurationStorageProvider">Card configuration.</param>
-        /// <param name="ticketDetail">Details of the ticket to be edited.</param>
-        /// <param name="localizer">The current cultures' string localizer.</param>
-        /// <param name="existingTicketDetail">Existing ticket details.</param>
-        /// <returns>Returns edit ticket adaptive card.</returns>
-        public static TaskModuleResponse GetEditTicketAdaptiveCard(ICardConfigurationStorageProvider cardConfigurationStorageProvider, TicketDetail ticketDetail, IStringLocalizer<Strings> localizer, TicketDetail existingTicketDetail = null)
-        {
-            var cardTemplate = cardConfigurationStorageProvider?.GetConfigurationsByCardIdAsync(ticketDetail?.CardId).Result;
-            return new TaskModuleResponse
-            {
-                Task = new TaskModuleContinueResponse
-                {
-                    Value = new TaskModuleTaskInfo()
-                    {
-                        Card = EditRequestCard.GetEditRequestCard(ticketDetail, cardTemplate, localizer, existingTicketDetail),
-                        Height = TaskModuleHeight,
-                        Width = TaskModuleWidth,
-                        Title = localizer.GetString("EditRequestTitle"),
-                    },
-                },
-            };
-        }
-
-        /// <summary>
-        /// Gets error message details adaptive card.
-        /// </summary>
-        /// <param name="localizer">The current cultures' string localizer.</param>
-        /// <returns>Returns edit ticket adaptive card.</returns>
-        public static TaskModuleResponse GetClosedErrorAdaptiveCard(IStringLocalizer<Strings> localizer)
-        {
-            return new TaskModuleResponse
-            {
-                Task = new TaskModuleContinueResponse
-                {
-                    Value = new TaskModuleTaskInfo()
-                    {
-                        Card = EditRequestCard.GetClosedErrorCard(localizer),
-                        Height = ErrorMessageTaskModuleHeight,
-                        Width = ErrorMessageTaskModuleWidth,
-                        Title = localizer.GetString("EditRequestTitle"),
-                    },
-                },
-            };
-        }
-
-        /// <summary>
-        /// Send card to SME channel and storage conversation details in storage.
-        /// </summary>
-        /// <param name="turnContext">Context object containing information cached for a single turn of conversation with a user.</param>
-        /// <param name="ticketDetail">Ticket details entered by user.</param>
-        /// <param name="logger">Sends logs to the Application Insights service.</param>
-        /// <param name="ticketDetailStorageProvider">Provider to store ticket details to Azure Table Storage.</param>
-        /// <param name="applicationBasePath">Represents the Application base Uri.</param>
-        /// <param name="cardElementMapping">Represents Adaptive card item element {Id, display name} mapping.</param>
-        /// <param name="localizer">The current cultures' string localizer.</param>
-        /// <param name="teamId">Represents unique id of a Team.</param>
-        /// <param name="microsoftAppCredentials">Microsoft Application credentials for Bot/ME.</param>
-        /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
-        /// <returns>Returns message in a conversation.</returns>
-        public static async Task<ConversationResourceResponse> SendRequestCardToSMEChannelAsync(
-            ITurnContext<IMessageActivity> turnContext,
-            TicketDetail ticketDetail,
-            ILogger logger,
-            ITicketDetailStorageProvider ticketDetailStorageProvider,
-            string applicationBasePath,
-            Dictionary<string, string> cardElementMapping,
-            IStringLocalizer<Strings> localizer,
-            string teamId,
-            MicrosoftAppCredentials microsoftAppCredentials,
-            CancellationToken cancellationToken)
-        {
-            Attachment smeTeamCard = new SmeTicketCard(ticketDetail).GetTicketDetailsForSMEChatCard(cardElementMapping, ticketDetail, applicationBasePath, localizer);
-            ConversationResourceResponse resourceResponse = await SendCardToTeamAsync(turnContext, smeTeamCard, teamId, microsoftAppCredentials, cancellationToken);
-
-            if (resourceResponse == null)
-            {
-                logger.LogError("Error while sending card to team.");
-                return null;
-            }
-
-            // Update SME team conversation details in storage.
-            ticketDetail.SmeTicketActivityId = resourceResponse.ActivityId;
-            ticketDetail.SmeConversationId = resourceResponse.Id;
-            bool result = await ticketDetailStorageProvider?.UpsertTicketAsync(ticketDetail);
-
-            if (!result)
-            {
-                logger.LogError("Error while saving SME conversation details in storage.");
-            }
-
-            return resourceResponse;
-        }
-
-        /// <summary>
-        /// Send the given attachment to the specified team.
-        /// </summary>
-        /// <param name="turnContext">Context object containing information cached for a single turn of conversation with a user.</param>
-        /// <param name="cardToSend">The card to send.</param>
-        /// <param name="teamId">Team id to which the message is being sent.</param>
-        /// <param name="microsoftAppCredentials">Microsoft Application credentials for Bot/ME.</param>
-        /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
-        /// <returns><see cref="Task"/>That resolves to a <see cref="ConversationResourceResponse"/>Send a attachment.</returns>
-        public static async Task<ConversationResourceResponse> SendCardToTeamAsync(
-            ITurnContext turnContext,
-            Attachment cardToSend,
-            string teamId,
-            MicrosoftAppCredentials microsoftAppCredentials,
-            CancellationToken cancellationToken)
-        {
-            turnContext = turnContext ?? throw new ArgumentNullException(nameof(turnContext));
-            ConversationParameters conversationParameters = new ConversationParameters
-            {
-                Activity = (Activity)MessageFactory.Attachment(cardToSend),
-                ChannelData = new TeamsChannelData { Channel = new ChannelInfo(teamId) },
-            };
-
-            TaskCompletionSource<ConversationResourceResponse> taskCompletionSource = new TaskCompletionSource<ConversationResourceResponse>();
-            await ((BotFrameworkAdapter)turnContext.Adapter).CreateConversationAsync(
-                null, // If we set channel = "msteams", there is an error as preinstalled middle-ware expects ChannelData to be present.
-                turnContext.Activity.ServiceUrl,
-                microsoftAppCredentials,
-                conversationParameters,
-                (newTurnContext, newCancellationToken) =>
-                {
-                    Activity activity = newTurnContext.Activity;
-                    taskCompletionSource.SetResult(new ConversationResourceResponse
-                    {
-                        Id = activity.Conversation.Id,
-                        ActivityId = activity.Id,
-                        ServiceUrl = activity.ServiceUrl,
-                    });
-                    return Task.CompletedTask;
-                },
-                cancellationToken);
-
-            return await taskCompletionSource.Task;
-        }
-
-        /// <summary>
-        /// Gets the email id's of the SME uses who are available for oncallSupport.
-        /// </summary>
-        /// <param name="turnContext">Context object containing information cached for a single turn of conversation with a user.</param>
-        /// <param name="onCallSupportDetailSearchService">Provider to search on call support details in Azure Table Storage.</param>
-        /// <param name="teamId">Team id to which the message is being sent.</param>
-        /// <param name="memoryCache">MemoryCache instance for caching oncallexpert details.</param>
-        /// <param name="logger">Sends logs to the Application Insights service.</param>
-        /// <returns>string with appended email id's.</returns>
-        public static async Task<string> GetOnCallSMEUserListAsync(ITurnContext<IInvokeActivity> turnContext, IOnCallSupportDetailSearchService onCallSupportDetailSearchService, string teamId, IMemoryCache memoryCache, ILogger<RemoteSupportActivityHandler> logger)
-        {
-            try
-            {
-                string onCallSMEUsers = string.Empty;
-
-                var onCallSupportDetails = await onCallSupportDetailSearchService?.SearchOnCallSupportTeamAsync(searchQuery: string.Empty, count: 1);
-                if (onCallSupportDetails != null && onCallSupportDetails.Any())
-                {
-                    var onCallSMEDetails = JsonConvert.DeserializeObject<List<OnCallSMEDetail>>(onCallSupportDetails.First().OnCallSMEs);
-                    var expertEmailList = new List<string>();
-                    foreach (var onCallSMEDetail in onCallSMEDetails)
-                    {
-                        var expertDetails = await TeamMemberCacheHelper.GetMemberInfoAsync(memoryCache, turnContext, onCallSMEDetail.ObjectId, teamId, CancellationToken.None);
-                        expertEmailList.Add(expertDetails.Email);
-                    }
-
-                    onCallSMEUsers = string.Join(", ", expertEmailList);
-                }
-
-                return onCallSMEUsers;
-            }
-#pragma warning disable CA1031 // Do not catch general exception types
-            catch (Exception ex)
-#pragma warning restore CA1031 // Do not catch general exception types
-            {
-                logger.LogError(ex, "Error in getting the oncallSMEUsers list.");
-            }
-
-            return null;
-        }
-
-        /// <summary>
-        /// Method updates experts card in team after modifying on call experts list.
-        /// </summary>
-        /// <param name="turnContext">Provides context for a turn of a bot.</param>
-        /// <param name="onCallExpertsDetail">Details of on call support experts updated.</param>
-        /// <param name="onCallSupportDetailSearchService">Provider to search on call support details in Azure Table Storage.</param>
-        /// <param name="onCallSupportDetailStorageProvider"> Provider for fetching and storing information about on call support in storage table.</param>
-        /// <param name="localizer">The current cultures' string localizer.</param>
-        /// <returns>A task that sends notification in newly created channel and mention its members.</returns>
-        public static async Task UpdateManageExpertsCardInTeamAsync(ITurnContext<IInvokeActivity> turnContext, OnCallExpertsDetail onCallExpertsDetail, IOnCallSupportDetailSearchService onCallSupportDetailSearchService, IOnCallSupportDetailStorageProvider onCallSupportDetailStorageProvider, IStringLocalizer<Strings> localizer)
-        {
-            // Get last 10 updated on call support data from storage.
-            // This is required because search service refresh interval is 10 minutes. So we need to get latest entry stored in storage from storage provider and append previous 9 updated records to it in order to show on screen.
-            var previousOnCallSupportDetails = await onCallSupportDetailSearchService?.SearchOnCallSupportTeamAsync(string.Empty, 9);
-            var currentOnCallSupportDetails = await onCallSupportDetailStorageProvider?.GetOnCallSupportDetailAsync(onCallExpertsDetail?.OnCallSupportId);
-
-            List<OnCallSupportDetail> onCallSupportDetails = new List<OnCallSupportDetail>
-            {
-                currentOnCallSupportDetails,
-            };
-            onCallSupportDetails.AddRange(previousOnCallSupportDetails);
-
-            // Replace message id in conversation id with card activity id to be refreshed.
-            var conversationId = turnContext?.Activity.Conversation.Id;
-            conversationId = conversationId?.Replace(turnContext.Activity.Conversation.Id.Split(';')[1].Split("=")[1], onCallExpertsDetail?.OnCallSupportCardActivityId, StringComparison.OrdinalIgnoreCase);
-            var onCallSMEDetailCardAttachment = OnCallSMEDetailCard.GetOnCallSMEDetailCard(onCallSupportDetails, localizer);
-
-            // Add activityId in the data which will be posted to task module in future after clicking on Manage button.
-            AdaptiveCard adaptiveCard = (AdaptiveCard)onCallSMEDetailCardAttachment.Content;
-            AdaptiveCardAction cardAction = (AdaptiveCardAction)((AdaptiveSubmitAction)adaptiveCard?.Actions?[0]).Data;
-            cardAction.ActivityId = onCallExpertsDetail?.OnCallSupportCardActivityId;
-
-            // Update the card in the SME team with updated on call experts list.
-            var updateExpertsCardActivity = new Activity(ActivityTypes.Message)
-            {
-                Id = onCallExpertsDetail?.OnCallSupportCardActivityId,
-                ReplyToId = onCallExpertsDetail?.OnCallSupportCardActivityId,
-                Conversation = new ConversationAccount { Id = conversationId },
-                Attachments = new List<Attachment> { onCallSMEDetailCardAttachment },
-            };
-            await turnContext.UpdateActivityAsync(updateExpertsCardActivity);
-        }
-
-        /// <summary>
-        /// Method to update the SME Card and gives corresponding notification.
-        /// </summary>
-        /// <param name="turnContext">Context object containing information cached for a single turn of conversation with a user.</param>
-        /// <param name="ticketDetail"> Ticket details entered by user.</param>
-        /// <param name="messageActivity">Message activity of bot.</param>
-        /// <param name="applicationBasePath"> Represents the Application base Uri.</param>
-        /// <param name="cardElementMapping">Represents Adaptive card item element {Id, display name} mapping.</param>
-        /// <param name="localizer">The current cultures' string localizer.</param>
-        /// <param name="logger">Telemetry logger.</param>
-        /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
-        /// <returns>task that updates card.</returns>
-        public static async Task UpdateSMECardAsync(
-            ITurnContext turnContext,
-            TicketDetail ticketDetail,
-            IMessageActivity messageActivity,
-            string applicationBasePath,
-            Dictionary<string, string> cardElementMapping,
-            IStringLocalizer<Strings> localizer,
-            ILogger logger,
-            CancellationToken cancellationToken)
-        {
-            try
-            {
-                turnContext = turnContext ?? throw new ArgumentNullException(nameof(turnContext));
-                messageActivity = messageActivity ?? throw new ArgumentNullException(nameof(messageActivity));
-
-                // Update the card in the SME team.
-                var updateCardActivity = new Activity(ActivityTypes.Message)
-                {
-                    Id = ticketDetail?.SmeTicketActivityId,
-                    Conversation = new ConversationAccount { Id = ticketDetail.SmeConversationId },
-                    Attachments = new List<Attachment> { new SmeTicketCard(ticketDetail).GetTicketDetailsForSMEChatCard(cardElementMapping, ticketDetail, applicationBasePath, localizer) },
-                };
-                await turnContext.Adapter.UpdateActivityAsync(turnContext, updateCardActivity, cancellationToken);
-                messageActivity.Conversation = new ConversationAccount { Id = ticketDetail.SmeConversationId };
-                await turnContext.Adapter.SendActivitiesAsync(turnContext, new Activity[] { (Activity)messageActivity }, cancellationToken);
-            }
-            catch (ErrorResponseException ex)
-            {
-                if (ex.Body.Error.Code == "ConversationNotFound")
-                {
-                    // exception could also be thrown by bot adapter if updated activity is same as current
-                    logger.LogError(ex, $"failed to update activity due to conversation id not found {nameof(UpdateSMECardAsync)}");
-                }
-
-                logger.LogError(ex, $"error occurred in {nameof(UpdateSMECardAsync)}");
-            }
-        }
-
-        /// <summary>
-        /// Remove mapping elements from ticket additional details and validate input values of type 'DateTime'.
-        /// </summary>
-        /// <param name="additionalDetails">Ticket addition details.</param>
-        /// <param name="timeSpan">>Local time stamp.</param>
-        /// <returns>Adaptive card item element json string.</returns>
-        public static string ValidateAdditionalTicketDetails(string additionalDetails, TimeSpan timeSpan)
-        {
-            var details = JsonConvert.DeserializeObject<Dictionary<string, string>>(additionalDetails);
-
-            RemoveMappingElement(details, "command");
-            RemoveMappingElement(details, "teamId");
-            RemoveMappingElement(details, "ticketId");
-            RemoveMappingElement(details, "cardId");
-
-            RemoveMappingElement(details, "Title");
-            RemoveMappingElement(details, "Description");
-            RemoveMappingElement(details, "RequestType");
-            Dictionary<string, string> keyValuePair = new Dictionary<string, string>();
-            if (details != null)
-            {
-                foreach (var item in details)
-                {
-                    try
-                    {
-                        keyValuePair.Add(item.Key, TicketHelper.ConvertToDateTimeoffset(DateTime.Parse(item.Value, CultureInfo.InvariantCulture), timeSpan).ToString(CultureInfo.InvariantCulture));
-                    }
-#pragma warning disable CA1031 // Do not catch general exception types
-                    catch
-#pragma warning restore CA1031 // Do not catch general exception types
-                    {
-                        keyValuePair.Add(item.Key, item.Value);
-                    }
-                }
-            }
-
-            return JsonConvert.SerializeObject(keyValuePair);
-        }
-
-        /// <summary>
-        /// Converts json property to adaptive card element.
-        /// </summary>
-        /// <param name="elements">Adaptive item element Json object.</param>
-        /// <returns>Returns adaptive card item element.</returns>
-        public static List<AdaptiveElement> ConvertToAdaptiveCardItemElement(List<JObject> elements)
-        {
-            var adaptiveElements = new List<AdaptiveElement>();
-            if (elements == null || elements.Count == 0)
-            {
-                return adaptiveElements;
-            }
-
-            foreach (var cardElement in elements)
-            {
-                var cardElementWithValues = JsonConvert.DeserializeObject<AdaptiveCardPlaceHolderMapper>(cardElement.ToString());
-
-                switch (cardElementWithValues.InputType)
-                {
-                    case AdaptiveTextBlock.TypeName:
-                        adaptiveElements.Add(AdaptiveElementHelper.ConvertToAdaptiveTextBlock(cardElement.ToString()));
-                        break;
-                    case AdaptiveTextInput.TypeName:
-                        adaptiveElements.Add(AdaptiveElementHelper.ConvertToAdaptiveTextInput(cardElement.ToString()));
-                        break;
-                    case AdaptiveChoiceSetInput.TypeName:
-                        adaptiveElements.Add(AdaptiveElementHelper.ConvertToAdaptiveChoiceSetInput(cardElement.ToString()));
-                        break;
-                    case AdaptiveDateInput.TypeName:
-                        adaptiveElements.Add(AdaptiveElementHelper.ConvertToAdaptiveDateInput(cardElement.ToString()));
-                        break;
-                }
-            }
-
-            return adaptiveElements;
-        }
-
-        /// <summary>
-        /// Convert json template to Adaptive card.
-        /// </summary>
-        /// <param name="localizer">The current cultures' string localizer.</param>
-        /// <param name="cardTemplate">Adaptive card template.</param>
-        /// <param name="showDateValidation">true if need to show validation message else false.</param>
-        /// <param name="ticketDetails">Ticket details key value pair.</param>
-        /// <returns>Adaptive card item element json string.</returns>
-        public static List<AdaptiveElement> ConvertToAdaptiveCard(IStringLocalizer<Strings> localizer, string cardTemplate, bool showDateValidation, Dictionary<string, string> ticketDetails = null)
-        {
-            var cardTemplates = JsonConvert.DeserializeObject<List<JObject>>(cardTemplate);
-            var cardTemplateElements = new List<JObject>();
-
-            foreach (var template in cardTemplates)
-            {
-                var templateMapping = template.ToObject<AdaptiveCardPlaceHolderMapper>();
-                if (templateMapping.InputType != "TextBlock")
-                {
-                    // get first observed display text if parsed from appSettings; rest all values will be set up directly in JSON payload.
-                    if (templateMapping.Id == CardConstants.IssueOccurredOnId)
-                    {
-                        templateMapping.DisplayName = localizer.GetString("FirstObservedText");
-                    }
-
-                    // every input elements display name is integrated with the JSON payload
-                    // and is converted to text block corresponding to input element
-                    cardTemplateElements.Add(JObject.FromObject(new AdaptiveTextBlock
-                    {
-                        Type = AdaptiveTextBlock.TypeName,
-                        Text = templateMapping.DisplayName,
-                    }));
-
-                    var templateMappingFieldValues = template.ToObject<Dictionary<string, object>>();
-
-                    if (ticketDetails != null)
-                    {
-                        templateMappingFieldValues["value"] = TryParseTicketDetailsKeyValuePair(ticketDetails, templateMapping.Id);
-                    }
-
-                    cardTemplateElements.Add(JObject.FromObject(templateMappingFieldValues));
-                }
-                else
-                {
-                    // Enabling validation message for First observed on date time field.
-                    if (templateMapping.Id == "DateValidationMessage")
-                    {
-                        if (showDateValidation)
-                        {
-                            cardTemplateElements.Add(JObject.FromObject(new AdaptiveTextBlock
-                            {
-                                Type = AdaptiveTextBlock.TypeName,
-                                Id = "DateValidationMessage",
-                                Spacing = AdaptiveSpacing.None,
-                                Color = AdaptiveTextColor.Attention,
-                                IsVisible = true,
-                                Text = localizer.GetString("DateValidationText"),
-                            }));
-                        }
-                    }
-                    else
-                    {
-                        cardTemplateElements.Add(template);
-                    }
-                }
-            }
-
-            // Parse and convert each elements to adaptive elements
-            return ConvertToAdaptiveCardItemElement(cardTemplateElements);
-        }
-
-        /// <summary>
-        /// Check and convert to DateTime adaptive text if input string is a valid date time.
-        /// </summary>
-        /// <param name="inputText">Input date time string.</param>
-        /// <returns>Adaptive card supported date time format else return sting as-is.</returns>
-        public static string AdaptiveTextParseWithDateTime(string inputText)
-        {
-            if (DateTime.TryParse(inputText, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime inputDateTime))
-            {
-                return "{{DATE(" + inputDateTime.ToUniversalTime().ToString(CardConstants.Rfc3339DateTimeFormat, CultureInfo.InvariantCulture) + ", SHORT)}}";
-            }
-
-            return inputText;
-        }
-
-        /// <summary>
-        /// Get values from dictionary.
-        /// </summary>
-        /// <param name="ticketDetails">Ticket additional details.</param>
-        /// <param name="key">Dictionary key.</param>
-        /// <returns>Dictionary value.</returns>
-        public static string TryParseTicketDetailsKeyValuePair(Dictionary<string, string> ticketDetails, string key)
-        {
-            if (ticketDetails != null && ticketDetails.ContainsKey(key))
-            {
-                return ticketDetails[key];
-            }
-            else
-            {
-                return string.Empty;
-            }
-        }
-
-        /// <summary>
-        /// Remove item from dictionary.
-        /// </summary>
-        /// <param name="ticketDetails">Ticket details key value pair.</param>
-        /// <param name="key">Dictionary key.</param>
-        /// <returns>boolean value.</returns>
-        public static bool RemoveMappingElement(Dictionary<string, string> ticketDetails, string key)
-        {
-            if (ticketDetails != null && ticketDetails.ContainsKey(key))
-            {
-                return ticketDetails.Remove(key);
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// Get adaptive card column set.
-        /// </summary>
-        /// <param name="title">Column title.</param>
-        /// <param name="value">Column value.</param>
-        /// <param name="localizer">The current cultures' string localizer.</param>
-        /// <returns>AdaptiveColumnSet.</returns>
-        public static AdaptiveColumnSet GetAdaptiveCardColumnSet(string title, string value, IStringLocalizer<Strings> localizer)
-        {
-            switch (value)
-            {
-                case Constants.UrgentString:
-                    value = localizer.GetString("UrgentText");
-                    break;
-                case Constants.NormalString:
-                    value = localizer.GetString("NormalText");
-                    break;
-                case Constants.ProblemString:
-                    value = localizer.GetString("ProblemText");
-                    break;
-                case Constants.EnquiryString:
-                    value = localizer.GetString("EnquiryText");
-                    break;
-                case Constants.AssignedString:
-                    value = localizer.GetString("AssignedText");
-                    break;
-                case Constants.UnassignedString:
-                    value = localizer.GetString("UnassignedText");
-                    break;
-                case Constants.ClosedString:
-                    value = localizer.GetString("ClosedText");
-                    break;
-                case Constants.WithdrawnString:
-                    value = localizer.GetString("WithdrawnText");
-                    break;
-            }
-
-            return new AdaptiveColumnSet
-            {
-                Columns = new List<AdaptiveColumn>
-                {
-                    new AdaptiveColumn
-                    {
-                        Width = "50",
-                        Items = new List<AdaptiveElement>
-                        {
-                            new AdaptiveTextBlock
-                            {
-                                HorizontalAlignment = AdaptiveHorizontalAlignment.Left,
-                                Text = $"{title}:",
-                                Wrap = true,
-                                Weight = AdaptiveTextWeight.Bolder,
-                                Size = AdaptiveTextSize.Medium,
-                            },
-                        },
-                    },
-                    new AdaptiveColumn
-                    {
-                        Width = "100",
-                        Items = new List<AdaptiveElement>
-                        {
-                            new AdaptiveTextBlock
-                            {
-                                HorizontalAlignment = AdaptiveHorizontalAlignment.Left,
-                                Text = AdaptiveTextParseWithDateTime(value),
-                                Wrap = true,
-                            },
-                        },
-                    },
-                },
-            };
-        }
-    }
-}
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:xlink="http://www.w3.org/1999/xlink" targetNamespace="http://ww.w3.org/1999/xlink">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CreatedOnText" xml:space="preserve">
+    <value>Created on </value>
+    <comment>Text to show in ME Thumbnail card</comment>
+  </data>
+  <data name="EditRequestTitle" xml:space="preserve">
+    <value>Edit request</value>
+    <comment>Text to show on button</comment>
+  </data>
+  <data name="EditTicketActionText" xml:space="preserve">
+    <value>Edit</value>
+    <comment>Text to show for edit in ticket detail card in 1:1 chat.</comment>
+  </data>
+  <data name="GoToOriginalThreadButtonText" xml:space="preserve">
+    <value>View details</value>
+    <comment>Text to show on button in End User ME .</comment>
+  </data>
+  <data name="InvalidTenantText" xml:space="preserve">
+    <value>Invalid tenant detected</value>
+    <comment>Text to show if invalid tenant.</comment>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+    <comment>Text to show in confirmation card.</comment>
+  </data>
+  <data name="NormalText" xml:space="preserve">
+    <value>Chat</value>
+    <comment>Text to show on the radio button when selected normal.</comment>
+  </data>
+    <data name="Change" xml:space="preserve">
+    <value>Change</value>
+    <comment>Text to show on the radio button when selected change.</comment>
+  </data>
+    <data name="Request" xml:space="preserve">
+    <value>Request</value>
+    <comment>Text to show on the radio button when selected request.</comment>
+  </data>
+  <data name="RequestSubmittedContent" xml:space="preserve">
+    <value>For reference, here's what I shared with the on-call team.</value>
+    <comment>Text to show on request submitted card.</comment>
+  </data>
+  <data name="RequestSubmittedText" xml:space="preserve">
+    <value>Request sent</value>
+    <comment>Text to show as tiltle of ticket detail card send in 1:1 chat with bot.</comment>
+  </data>
+  <data name="UpdateActionText" xml:space="preserve">
+    <value>Update</value>
+    <comment>Text to show on the update button in adaptive card.</comment>
+  </data>
+  <data name="UrgentText" xml:space="preserve">
+    <value>Call back</value>
+    <comment>Text to show on the radio button when selected urgent.</comment>
+  </data>
+  <data name="WithdrawConfirmation" xml:space="preserve">
+    <value>Are you sure you want to withdraw the request?</value>
+    <comment>Text to show on withdraw request action in ticket detail card in 1:1 chat.</comment>
+  </data>
+  <data name="WithdrawRequestActionText" xml:space="preserve">
+    <value>Withdraw</value>
+    <comment>Text to show on withdraw button in Request submitted card.</comment>
+  </data>
+  <data name="WithdrawText" xml:space="preserve">
+    <value>You have withdrawn the chat session #{0}. If you encounter any other problems, please raise a new request.</value>
+    <comment>Text to show End User Notification when requets is submitted.</comment>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+    <comment>Text to show yes in confirmation card.</comment>
+  </data>
+  <data name="ContentText" xml:space="preserve">
+    <value>Get started now...</value>
+    <comment>Text to show in EndUser welcome card.</comment>
+  </data>
+  <data name="NewRequestBulletPoint" xml:space="preserve">
+    <value>* Hit the  **New request** button or type **New request** in this chat.</value>
+    <comment>Text to show command in a welcome card.</comment>
+  </data>
+  <data name="NewRequestButtonText" xml:space="preserve">
+    <value>New request</value>
+    <comment>Text to show in Edit task module,new request card.</comment>
+  </data>
+  <data name="WelcomeCardContent" xml:space="preserve">
+    <value>Facing a problem? I can ask the on-call team to look into it.</value>
+    <comment>Text to show bot description in welcome card for EndUser.</comment>
+  </data>
+  <data name="WelcomeCardTitle" xml:space="preserve">
+    <value>Welcome!</value>
+    <comment>Text to show in welcome card.</comment>
+  </data>
+  <data name="WelcomeSubHeaderText" xml:space="preserve">
+    <value>Here's how it works:</value>
+    <comment>Text to show as a sub header in welcome card.</comment>
+  </data>
+  <data name="AssignToMeActionChoiceTitle" xml:space="preserve">
+    <value>Assign to me</value>
+    <comment>Text to assign a ticket to himself.</comment>
+  </data>
+  <data name="ChangeStatusButtonText" xml:space="preserve">
+    <value>Change status</value>
+    <comment>Text to show change status on button.</comment>
+  </data>
+  <data name="ChatTextButton" xml:space="preserve">
+    <value>Chat</value>
+    <comment>Text to show chat button for EndUser.</comment>
+  </data>
+  <data name="CloseActionChoiceTitle" xml:space="preserve">
+    <value>Close</value>
+    <comment>Text to show Close action in Change status section.</comment>
+  </data>
+  <data name="FirstObservedText" xml:space="preserve">
+    <value>First observed on</value>
+    <comment>Text to shown title for First observed in ticket card.</comment>
+  </data>
+  <data name="ReopenActionChoiceTitle" xml:space="preserve">
+    <value>Reopen</value>
+    <comment>Text to show in change status section in SME request details card.</comment>
+  </data>
+  <data name="ReopenAssignToMeActionChoiceTitle" xml:space="preserve">
+    <value>Reopen and assign to me.</value>
+    <comment>Text to show in change status section in SME request details card.</comment>
+  </data>
+  <data name="RequestDetailsText" xml:space="preserve">
+    <value>Request details</value>
+    <comment>Text to show in Request details card for Expert Team</comment>
+  </data>
+  <data name="SeverityButtonText" xml:space="preserve">
+    <value>Change severity</value>
+    <comment>Text to show severity on button in request details card.</comment>
+  </data>
+  <data name="SmeRequestDetailText" xml:space="preserve">
+    <value>{0} is requesting support.</value>
+    <comment>Text to show under request submitted card to SME.</comment>
+  </data>
+  <data name="SmeUserChatMessage" xml:space="preserve">
+    <value>RE : Support request {0}.</value>
+    <comment>Text to show when SME user try to chat with Enduser.</comment>
+  </data>
+  <data name="UnassignActionChoiceTitle" xml:space="preserve">
+    <value>Unassign</value>
+    <comment>Text to show in change status dropdown choice in request details card.</comment>
+  </data>
+  <data name="EndUserNotificationText" xml:space="preserve">
+    <value>&lt;br/&gt; &lt;p style="font-style: italic;"&gt;(1) Chat requests received after TSD operating hours &lt;b&gt;(Mon-Fri 8am-8pm, Sat 8am-2pm)&lt;/b&gt; will be attended on the next business day.&lt;/p&gt; &lt;br/&gt; &lt;p style="font-style: italic;"&gt;(2) Call back requests received after 2pm will be attended on the next business day.&lt;/p&gt;</value>
+    <comment>Text to show EndUser notification when request is submitted.</comment>
+  </data>
+  <data name="SmeAssignedStatus" xml:space="preserve">
+    <value>This request is now assigned to {0}.</value>
+    <comment>Text to show notification as assigned request is closed to SME Users.</comment> 
+  </data>
+  <data name="SmeClosedStatus" xml:space="preserve">
+    <value>Status changed to resolved by {0}.</value>
+    <comment>Text to show notification as request is closed to SME Users.</comment>
+  </data>
+  <data name="SmeSeverityStatus" xml:space="preserve">
+    <value>Severity changed to {0} by {1}.</value>
+    <comment>Text to show notification when request changes severity from SME Users.</comment>
+  </data>
+  <data name="SmeUnassignedStatus" xml:space="preserve">
+    <value>Status changed to unassigned by {0}.</value>
+    <comment>Text to show notification when request is unassigned to SME Users.</comment>
+  </data>
+  <data name="ManageExpertsActionText" xml:space="preserve">
+    <value>Manage</value>
+    <comment>Text to show on button</comment>
+  </data>
+  <data name="OnCallSMEDetailCardText" xml:space="preserve">
+    <value>Here's the current on-call team. Click **Manage** to change which specialists are on the team.</value>
+    <comment>On call SME detail card text.</comment>
+  </data>
+  <data name="UpdateHistoryActionText" xml:space="preserve">
+    <value>View history</value>
+    <comment>Text to show on button</comment>
+  </data>
+  <data name="DatetimeTitleText" xml:space="preserve">
+    <value>Last updated on</value>
+    <comment>Text to show on update history card title</comment>
+  </data>
+  <data name="NameTitleText" xml:space="preserve">
+    <value>Name</value>
+    <comment>Text to show on update history card title</comment>
+  </data>
+  <data name="NoOnCallExpertsConfiguredText" xml:space="preserve">
+    <value>No one is on call right now. Select **Manage** to add specialists to the on-call team.</value>
+    <comment>Text to show when no on call support experts are configured</comment>
+  </data>
+  <data name="ManageExpertsTitle" xml:space="preserve">
+    <value>Manage list of on-call experts here</value>
+    <comment>Text to show in manage experts page shown in task module </comment>
+  </data>
+  <data name="NoUpdateHistoryText" xml:space="preserve">
+    <value>There is no on-call history available.</value>
+    <comment>Text to show when no update history is available.</comment>
+  </data>
+  <data name="ErrorMessage" xml:space="preserve">
+    <value>Something went wrong. Try again in a few minutes.</value>
+    <comment>Generic error message.</comment>
+  </data>
+  <data name="AssignedTicketUserNotification" xml:space="preserve">
+    <value>Your chat session #{0} has been picked up from the queue. A specialist will chat with you soon.</value>
+    <comment>Text to show notification for user when ticket is assigned to expert team.</comment>
+  </data>
+  <data name="ClosedTicketUserNotification" xml:space="preserve">
+    <value>Our specialist has reached out to you via direct chat to assist you further.</value>
+    <comment>Text to show user notification message when ticket is closed by Expert Team.</comment>
+  </data>
+  <data name="EscalateButtonText" xml:space="preserve">
+    <value>Escalate</value>
+    <comment>Text to show on button in EndUser ME.</comment>
+  </data>
+  <data name="ReopenedTicketUserNotification" xml:space="preserve">
+    <value>We're changing who works on your request. We'll update you soon.</value>
+    <comment>Text to show user when status of ticket is reopened by Expert team member.</comment>
+  </data>
+  <data name="RequestActionTicketUserNotification" xml:space="preserve">
+    <value>The severity level on your request #{0} has been updated.</value>
+    <comment>Text to show user when severity of ticket is changed by Expert team member.</comment>
+  </data>
+  <data name="DateValidationText" xml:space="preserve">
+    <value>The date selected must be in the past</value>
+    <comment>Text to show if issue date is greater than enter date of is empty.</comment>
+  </data>
+  <data name="DescriptionValidationText" xml:space="preserve">
+    <value>Description is required</value>
+    <comment>Text to show if description field is empty.</comment>
+  </data>
+  <data name="TitleValidationText" xml:space="preserve">
+    <value>Input is required</value>
+    <comment>Text to show if title field is empty.</comment>
+  </data>
+  <data name="GroupName" xml:space="preserve">
+    <value>Request no {0}- attention required</value>
+    <comment>Text to use as a group name when group is created.</comment>
+  </data>
+  <data name="MessageContent" xml:space="preserve">
+    <value>Hi Team, I need immediate support for request created by {0}. Can you help?</value>
+    <comment>Text to show when user clicks on chat button.</comment>
+  </data>
+  <data name="InvalidTeamText" xml:space="preserve">
+    <value>This bot has not been added for this team</value>
+    <comment>Text to show validation in ME when it is not a valid team to open request.</comment>
+  </data>
+  <data name="ExpertNameTitle" xml:space="preserve">
+    <value>Select a specialist</value>
+    <comment>Text to show on manage experts page</comment>
+  </data>
+  <data name="AddButtonText" xml:space="preserve">
+    <value>Add</value>
+    <comment>Text to show on add button.</comment>
+  </data>
+  <data name="ExpertListPlaceHolderText" xml:space="preserve">
+    <value>Enter one or more names or emails</value>
+    <comment>Text to show in expert list dropdown placeholder.</comment>
+  </data>
+  <data name="ExpertList" xml:space="preserve">
+    <value>Expert List</value>
+    <comment>Text to show on list of experts from command list.</comment>
+  </data>
+  <data name="ExpertListTitle" xml:space="preserve">
+    <value>Current on-call team</value>
+    <comment>Text to show on manage experts page.</comment>
+  </data>
+  <data name="NoMatchesFoundText" xml:space="preserve">
+    <value>We couldn't find any matches.</value>
+    <comment>Text to show when there are no matches to condition.</comment>
+  </data>
+  <data name="SaveButtonText" xml:space="preserve">
+    <value>Save</value>
+    <comment>Text to show on save button.</comment>
+  </data>
+  <data name="OnCallExpertMentionText" xml:space="preserve">
+    <value>The on-call experts list has been modified. {0} have been added.</value>
+    <comment>Text to show when on call expert list is modified.</comment>
+  </data>
+  <data name="MaxOnCallExpertsAllowedText" xml:space="preserve">
+    <value>A maximum of 15 people can be added to the list with a min of 0</value>
+    <comment>Text to show for validation message when on call experts selected are more than 15.</comment>
+  </data>
+  <data name="ExperListBulletPoint" xml:space="preserve">
+    <value>* Hit **Current on-call team** button to set up on call experts from this team.</value>
+    <comment>Text to show command in a welcome Team card.</comment>
+  </data>
+  <data name="SmeEditNotificationText" xml:space="preserve">
+    <value>This request is modified by {0}.</value>
+    <comment>Text to show when user edits the request.</comment>
+  </data>
+  <data name="SmeWithdrawNotificationText" xml:space="preserve">
+    <value>This request is withdrawn by {0}.</value>
+    <comment>Text to show for SME user when withdrawn.</comment>
+  </data>
+  <data name="RequestUpdatedText" xml:space="preserve">
+    <value>Request updated</value>
+    <comment>Text to show as title of ticket edited card send in 1:1 chat with bot.</comment>
+  </data>
+  <data name="WelcomeTeamCardContent" xml:space="preserve">
+    <value>Hello, I can help you provide support to people who interact with me and need more assistance.</value>
+    <comment>Text to show bot description in welcome card for Sme.</comment>
+  </data>
+  <data name="ClosedErrorMessage" xml:space="preserve">
+    <value>This chat session has ended and cannot be edited further.</value>
+    <comment>Text to show when user want to edit closed request.</comment>
+  </data>
+  <data name="DescriptionText" xml:space="preserve">
+    <value>Details</value>
+    <comment>Text to show description in request submitted card.</comment>
+  </data>
+  <data name="RequestNumberText" xml:space="preserve">
+    <value>Session Number</value>
+    <comment>Text to show as request number in new request card.</comment>
+  </data>
+  <data name="RequestTypeText" xml:space="preserve">
+    <value>Mode of Contact</value>
+    <comment>Text to show request type in request submitted card.</comment>
+  </data>
+  <data name="TitleDisplayText" xml:space="preserve">
+    <value>Contact Number</value>
+    <comment>Text to show as title text in new request card.</comment>
+  </data>
+  <data name="WithdrawErrorMessage" xml:space="preserve">
+    <value>Only active requests can be withdrawn.</value>
+    <comment>Text to show when user want to withdraw closed request.</comment>
+  </data>
+  <data name="StatusCheckBulletPoint" xml:space="preserve">
+    <value>* To check status, click the small version of my icon near your message formatting options.</value>
+    <comment>Text to show in welcome card for know user how this bot hepls.</comment>
+  </data>
+  <data name="AzureStorageErrorText" xml:space="preserve">
+    <value>Something went wrong while saving your request. Please try again in few minutes.</value>
+    <comment>Text to show error when the request is not save in the azure storage.</comment>
+  </data>
+  <data name="CancelButtonText" xml:space="preserve">
+    <value>Cancel</value>
+    <comment>Text to show for button action.</comment>
+  </data>
+  <data name="DesciptionPlaceHolderText" xml:space="preserve">
+    <value>Describe the problem and indicate a </value>
+    <comment>Text to show in desciption place holder.</comment>
+  </data>
+  <data name="NewRequestTitle" xml:space="preserve">
+    <value>New request</value>
+    <comment>Text to show in new request card.</comment>
+  </data>
+  <data name="SendRequestButtonText" xml:space="preserve">
+    <value>Send request</value>
+    <comment>Text to show for button action.</comment>
+  </data>
+  <data name="TellUsAboutProblemText" xml:space="preserve">
+    <value>Tell us about the problem</value>
+    <comment>Text to show in card.</comment>
+  </data>
+  <data name="TitlePlaceHolderText" xml:space="preserve">
+    <value>Provide contact number for call back.</value>
+    <comment>Text to show in title place holder.</comment>
+  </data>
+  <data name="SessionExpired" xml:space="preserve">
+    <value>Your session has expired. Please sign in again to proceed.</value>
+    <comment>Text to show when user session is expired.</comment>
+  </data>
+  <data name="UnauthorizedAccess" xml:space="preserve">
+    <value>Unauthorized access</value>
+    <comment>Text to show when user is not authenticated.</comment>
+  </data>
+  <data name="OnCallListUpdateMessage" xml:space="preserve">
+    <value>The on-call experts list is modified.</value>
+  </data>
+  <data name="RequestStatusText" xml:space="preserve">
+    <value>Status</value>
+    <comment>Text to show ticket current status.</comment>
+  </data>
+  <data name="TeamRequestBulletPoint" xml:space="preserve">
+    <value>* To check requests assignements, click the small version of my icon near your message formatting options.</value>
+    <comment>Text to show as a bullet point in team welcome card.</comment>
+  </data>
+  <data name="BotCommandExpertList" xml:space="preserve">
+    <value>Expert list</value>
+    <comment>Bot command Expert list. This needs to be matched with manifest's command "Expert list" in translated json file.</comment>
+  </data>
+  <data name="BotCommandNewRequest" xml:space="preserve">
+    <value>New request</value>
+    <comment>Bot command New request. This needs to be matched with manifest's command "New request" in translated json file.</comment>
+  </data>
+  <data name="WithdrawnText" xml:space="preserve">
+    <value>Withdrawn</value>
+    <comment>Text to show withdrawn status of ticket.</comment>
+  </data>
+  <data name="AssignedText" xml:space="preserve">
+    <value>Assigned</value>
+    <comment>Text to show status as assigned.</comment>
+  </data>
+  <data name="ClosedText" xml:space="preserve">
+    <value>Closed</value>
+    <comment>Text to show status as closed.</comment>
+  </data>
+  <data name="UnassignedText" xml:space="preserve">
+    <value>Unassigned</value>
+    <comment>Text to show status as unassigned.</comment>
+  </data>
+</root>
