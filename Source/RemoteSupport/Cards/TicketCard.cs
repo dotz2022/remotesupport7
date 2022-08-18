@@ -74,6 +74,28 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Cards
 
             dynamicElements.AddRange(new List<AdaptiveElement>
             {
+                
+                new AdaptiveTextBlock("Please select Category"),
+                
+                new AdaptiveChoiceSetInput
+                {
+                    Choices = new list<AdaptiveChoice>
+                    {
+                        new AdaptiveChoice
+                        {
+                            Title = localizer.GetString("NormalText"),
+                            Value = Constants.NormalString, 
+                        },
+                        new AdaptiveChoice
+                        {
+                            Title = localizer.GetString("UrgentText"),
+                            Value = Constants.UrgentString,
+                        },
+                    }, 
+                    Id = "RequestType",
+                    Value = !string.IsNullOrEmpty(ticketDetail?.RequestType) ? ticketDetail?.RequestType : Constants.NormalString,
+                    Style = AdaptiveChoiceInputStyle.Compact,    
+                },                         
                 new AdaptiveTextBlock
                 {
                     Text = localizer.GetString("NewRequestTitle"),
@@ -149,6 +171,26 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Cards
                     Id = "RequestType",
                     Value = !string.IsNullOrEmpty(ticketDetail?.RequestType) ? ticketDetail?.RequestType : Constants.NormalString,
                     Style = AdaptiveChoiceInputStyle.Expanded,
+                },
+                new AdaptiveTextBlock()
+                {
+                    Text = localizer.GetString("TitleDisplayText"),
+                    Spacing = AdaptiveSpacing.Medium,
+                },
+                new AdaptiveTextInput()
+                {
+                    Id = "Title",
+                    MaxLength = 100,
+                    Placeholder = localizer.GetString("TitlePlaceHolderText"),
+                    Spacing = AdaptiveSpacing.Small,
+                    Value = issueTitle,
+                },
+                new AdaptiveTextBlock()
+                {
+                    Text = localizer.GetString("TitleValidationText"),
+                    Spacing = AdaptiveSpacing.None,
+                    IsVisible = showTitleValidation,
+                    Color = AdaptiveTextColor.Attention,
                 },
             });
 
