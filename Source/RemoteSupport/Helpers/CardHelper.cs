@@ -643,3 +643,4 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Helpers
             };
         }
     }
+}
