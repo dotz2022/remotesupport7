@@ -1,4 +1,4 @@
-// <copyright file="CardHelper.cs" company="Microsoft">
+﻿// <copyright file="CardHelper.cs" company="Microsoft">
 // Copyright (c) Microsoft. All rights reserved.
 // </copyright>
 
@@ -586,12 +586,6 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Helpers
                     break;
                 case Constants.NormalString:
                     value = localizer.GetString("NormalText");
-                    break;
-                case Constants.ProblemString:
-                    value = localizer.GetString("ProblemText");
-                    break;
-                case Constants.EnquiryString:
-                    value = localizer.GetString("EnquiryText");
                     break;
                 case Constants.AssignedString:
                     value = localizer.GetString("AssignedText");

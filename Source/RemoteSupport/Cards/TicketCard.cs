@@ -87,7 +87,7 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Cards
                 },
                 new AdaptiveTextBlock()
                 {
-                    Text = localizer.GetString("RequestCategoryText"),
+                    Text = localizer.GetString("RequestTypeText"),
                     Spacing = AdaptiveSpacing.Medium,
                 },
                 new AdaptiveChoiceSetInput
@@ -96,17 +96,17 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Cards
                     {
                         new AdaptiveChoice
                         {
-                            Title = localizer.GetString("ProblemText"),
-                            Value = Constants.ProblemString,
+                            Title = localizer.GetString("NormalText"),
+                            Value = Constants.NormalString,
                         },
                         new AdaptiveChoice
                         {
-                            Title = localizer.GetString("EnquiryText"),
-                            Value = Constants.EnquiryString,
+                            Title = localizer.GetString("UrgentText"),
+                            Value = Constants.UrgentString,
                         },
                     },
                     Id = "RequestType",
-                    Value = !string.IsNullOrEmpty(ticketDetail?.RequestType) ? ticketDetail?.RequestType : Constants.ProblemString,
+                    Value = !string.IsNullOrEmpty(ticketDetail?.RequestType) ? ticketDetail?.RequestType : Constants.NormalString,
                     Style = AdaptiveChoiceInputStyle.Compact,
                 },
                 new AdaptiveTextBlock()
@@ -231,16 +231,16 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Cards
             var dynamicElements = new List<AdaptiveElement>();
             var ticketAdditionalFields = new List<AdaptiveElement>();
 
-            foreach (KeyValuePair<string, string> item in ticketAdditionalDetail)
-            {
-                string key = item.Key;
-                if (item.Key.Equals(CardConstants.IssueOccurredOnId, StringComparison.OrdinalIgnoreCase))
-                {
-                    key = localizer.GetString("FirstObservedText");
-                }
+            // foreach (KeyValuePair<string, string> item in ticketAdditionalDetail)
+            // {
+            //     string key = item.Key;
+            //     if (item.Key.Equals(CardConstants.IssueOccurredOnId, StringComparison.OrdinalIgnoreCase))
+            //     {
+            //         key = localizer.GetString("FirstObservedText");
+            //     }
 
-                ticketAdditionalFields.Add(CardHelper.GetAdaptiveCardColumnSet(cardElementMapping.ContainsKey(key) ? cardElementMapping[key] : key, item.Value, localizer));
-            }
+            //     ticketAdditionalFields.Add(CardHelper.GetAdaptiveCardColumnSet(cardElementMapping.ContainsKey(key) ? cardElementMapping[key] : key, item.Value, localizer));
+            // }
 
             dynamicElements.AddRange(new List<AdaptiveElement>
             {
