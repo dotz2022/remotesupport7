@@ -73,13 +73,15 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Cards
             ticketAdditionalFields = CardHelper.ConvertToAdaptiveCard(localizer, cardConfiguration.CardTemplate, showDateValidation);
 
             dynamicElements.AddRange(new List<AdaptiveElement>
-            {
-                
-                new AdaptiveTextBlock("Please select Category"),
-                
+            { 
+                new AdaptiveTextBlock()
+                {
+                    Text = localizer.GetString("RequestTypeText"),
+                    Spacing = AdaptiveSpacing.Medium,
+                },
                 new AdaptiveChoiceSetInput
                 {
-                    Choices = new list<AdaptiveChoice>
+                    Choices = new List<AdaptiveChoice>
                     {
                         new AdaptiveChoice
                         {
