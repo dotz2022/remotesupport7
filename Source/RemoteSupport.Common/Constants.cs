@@ -110,16 +110,6 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Common
         public const string UrgentString = "Urgent";
 
         /// <summary>
-        /// Problem request type text.
-        /// </summary>
-        public const string ProblemString = "Problem";
-
-        /// <summary>
-        /// Enquiry request type text.
-        /// </summary>
-        public const string EnquiryString = "Enquiry";
-
-        /// <summary>
         /// Cancel command.
         /// </summary>
         public const string CancelCommand = "CANCEL";
