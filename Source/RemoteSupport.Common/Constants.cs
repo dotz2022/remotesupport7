@@ -1,4 +1,4 @@
-﻿// <copyright file="Constants.cs" company="Microsoft">
+// <copyright file="Constants.cs" company="Microsoft">
 // Copyright (c) Microsoft. All rights reserved.
 // </copyright>
 
@@ -108,6 +108,16 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Common
         /// Urgent request type text.
         /// </summary>
         public const string UrgentString = "Urgent";
+
+        /// <summary>
+        /// Problem request type text.
+        /// </summary>
+        public const string ProblemString = "Problem";
+
+        /// <summary>
+        /// Enquiry request type text.
+        /// </summary>
+        public const string EnquiryString = "Enquiry";
 
         /// <summary>
         /// Cancel command.
