@@ -74,6 +74,17 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Cards
 
             dynamicElements.AddRange(new List<AdaptiveElement>
             {
+                new AdaptiveTextBlock
+                {
+                    Text = localizer.GetString("NewRequestTitle"),
+                    Weight = AdaptiveTextWeight.Bolder,
+                    Size = AdaptiveTextSize.Large,
+                },
+                new AdaptiveTextBlock()
+                {
+                    Text = localizer.GetString("TellUsAboutProblemText"),
+                    Spacing = AdaptiveSpacing.Small,
+                },
                 new AdaptiveTextBlock()
                 {
                     Text = localizer.GetString("RequestTypeText"),
@@ -97,30 +108,6 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Cards
                     Id = "RequestType",
                     Value = !string.IsNullOrEmpty(ticketDetail?.RequestType) ? ticketDetail?.RequestType : Constants.NormalString,
                     Style = AdaptiveChoiceInputStyle.Compact,
-                },
-                new AdaptiveTextBlock
-                {
-                    Text = localizer.GetString("NewRequestTitle"),
-                    Weight = AdaptiveTextWeight.Bolder,
-                    Size = AdaptiveTextSize.Large,
-                },
-                new AdaptiveTextBlock()
-                {
-                    Text = localizer.GetString("TellUsAboutProblemText"),
-                    Spacing = AdaptiveSpacing.Small,
-                },
-                new AdaptiveTextBlock()
-                {
-                    Text = localizer.GetString("TitleDisplayText"),
-                    Spacing = AdaptiveSpacing.Medium,
-                },
-                new AdaptiveTextInput()
-                {
-                    Id = "Title",
-                    MaxLength = 100,
-                    Placeholder = localizer.GetString("TitlePlaceHolderText"),
-                    Spacing = AdaptiveSpacing.Small,
-                    Value = issueTitle,
                 },
                 new AdaptiveTextBlock()
                 {
@@ -244,16 +231,16 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Cards
             var dynamicElements = new List<AdaptiveElement>();
             var ticketAdditionalFields = new List<AdaptiveElement>();
 
-            foreach (KeyValuePair<string, string> item in ticketAdditionalDetail)
-            {
-                string key = item.Key;
-                if (item.Key.Equals(CardConstants.IssueOccurredOnId, StringComparison.OrdinalIgnoreCase))
-                {
-                    key = localizer.GetString("FirstObservedText");
-                }
+            // foreach (KeyValuePair<string, string> item in ticketAdditionalDetail)
+            // {
+            //     string key = item.Key;
+            //     if (item.Key.Equals(CardConstants.IssueOccurredOnId, StringComparison.OrdinalIgnoreCase))
+            //     {
+            //         key = localizer.GetString("FirstObservedText");
+            //     }
 
-                ticketAdditionalFields.Add(CardHelper.GetAdaptiveCardColumnSet(cardElementMapping.ContainsKey(key) ? cardElementMapping[key] : key, item.Value, localizer));
-            }
+            //     ticketAdditionalFields.Add(CardHelper.GetAdaptiveCardColumnSet(cardElementMapping.ContainsKey(key) ? cardElementMapping[key] : key, item.Value, localizer));
+            // }
 
             dynamicElements.AddRange(new List<AdaptiveElement>
             {
