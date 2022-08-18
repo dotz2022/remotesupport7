@@ -491,6 +491,18 @@ namespace Microsoft.Teams.Apps.RemoteSupport {
                 return ResourceManager.GetString("NormalText", resourceCulture);
             }
         }
+
+        public static string Request {
+            get {
+                return ResourceManager.GetString("Request", resourceCulture);
+            }
+        }
+        
+        public static string Change {
+            get {
+                return ResourceManager.GetString("Change", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to There is no on-call history available..
