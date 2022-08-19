@@ -96,8 +96,8 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Cards
                     {
                         new AdaptiveChoice
                         {
-                            Title = localizer.GetString("NormalText"),
-                            Value = Constants.NormalString,
+                            Title = localizer.GetString("CategoryOneText"),
+                            Value = Constants.CategoryOneText,
                         },
                         new AdaptiveChoice
                         {
@@ -106,7 +106,7 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Cards
                         },
                     },
                     Id = "RequestType",
-                    Value = !string.IsNullOrEmpty(ticketDetail?.RequestType) ? ticketDetail?.RequestType : Constants.NormalString,
+                    // Value = !string.IsNullOrEmpty(ticketDetail?.RequestType) ? ticketDetail?.RequestType : Constants.NormalString,
                     Style = AdaptiveChoiceInputStyle.Compact,
                 },
                 new AdaptiveTextBlock()
