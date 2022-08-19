@@ -97,7 +97,7 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Cards
                         new AdaptiveChoice
                         {
                             Title = localizer.GetString("CategoryOneText"),
-                            Value = Constants.CategoryOneText,
+                            Value = Constants.CategoryOneTextString,
                         },
                         new AdaptiveChoice
                         {
