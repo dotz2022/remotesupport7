@@ -145,13 +145,9 @@
     <value>Chat</value>
     <comment>Text to show on the radio button when selected normal.</comment>
   </data>
-  <data name="ProblemText" xml:space="preserve">
+  <data name="CategoryOneText" xml:space="preserve">
     <value>Problem</value>
-    <comment>Text to show on the radio button when selected problem.</comment>
-  </data>
-  <data name="EnquiryText" xml:space="preserve">
-    <value>Enquiry</value>
-    <comment>Text to show on the radio button when selected problem.</comment>
+    <comment>Text to show on the drop down when selected Problem.</comment>
   </data>
   <data name="RequestSubmittedContent" xml:space="preserve">
     <value>For reference, here's what I shared with the on-call team.</value>
@@ -428,10 +424,6 @@
   <data name="RequestTypeText" xml:space="preserve">
     <value>Mode of Contact</value>
     <comment>Text to show request type in request submitted card.</comment>
-  </data>
-  <data name="RequestCategoryText" xml:space="preserve">
-    <value>Request Category</value>
-    <comment>Text to show request categgory in request submitted card.</comment>
   </data>
   <data name="TitleDisplayText" xml:space="preserve">
     <value>Contact Number</value>

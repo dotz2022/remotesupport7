@@ -87,7 +87,7 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Cards
                 },
                 new AdaptiveTextBlock()
                 {
-                    Text = localizer.GetString("RequestCategoryText"),
+                    Text = localizer.GetString("RequestTypeText"),
                     Spacing = AdaptiveSpacing.Medium,
                 },
                 new AdaptiveChoiceSetInput
@@ -96,17 +96,17 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Cards
                     {
                         new AdaptiveChoice
                         {
-                            Title = localizer.GetString("ProblemText"),
-                            Value = Constants.ProblemString,
+                            Title = localizer.GetString("CategoryOneText"),
+                            Value = Constants.CategoryOneText,
                         },
                         new AdaptiveChoice
                         {
-                            Title = localizer.GetString("EnquiryText"),
-                            Value = Constants.EnquiryString,
+                            Title = localizer.GetString("UrgentText"),
+                            Value = Constants.UrgentString,
                         },
                     },
                     Id = "RequestType",
-                    Value = !string.IsNullOrEmpty(ticketDetail?.RequestType) ? ticketDetail?.RequestType : Constants.ProblemString,
+                    // Value = !string.IsNullOrEmpty(ticketDetail?.RequestType) ? ticketDetail?.RequestType : Constants.NormalString,
                     Style = AdaptiveChoiceInputStyle.Compact,
                 },
                 new AdaptiveTextBlock()
