@@ -430,8 +430,11 @@
     <comment>Text to show as request number in new request card.</comment>
   </data>
   <data name="RequestTypeText" xml:space="preserve">
-    <value>Mode of Contact</value>
+    <value>Contact Option</value>
     <comment>Text to show request type in request submitted card.</comment>
+  <data name="RequestCategoryText" xml:space="preserve">
+    <value>Type of Request</value>
+    <comment>Text to show category type in request submitted card.</comment>
   </data>
   <data name="TitleDisplayText" xml:space="preserve">
     <value>Contact Number</value>
