@@ -74,18 +74,28 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Cards
 
             dynamicElements.AddRange(new List<AdaptiveElement>
             {
-                new AdaptiveTextBlock()
+                new AdaptiveChoiceSetInput
                 {
-                    Text = localizer.GetString("TitleDisplayText"),
-                    Spacing = AdaptiveSpacing.Medium,
-                },
-                new AdaptiveTextInput()
-                {
-                    Id = "Title",
-                    MaxLength = 100,
-                    Placeholder = localizer.GetString("TitlePlaceHolderText"),
-                    Spacing = AdaptiveSpacing.Small,
-                    Value = issueTitle,
+                    Choices = new List<AdaptiveChoice>
+                    {
+                        new AdaptiveChoice
+                        {
+                            Title = localizer.GetString("CategoryOneText"),
+                            Value = Constants.CategoryOneTextString,
+                        },
+                        new AdaptiveChoice
+                        {
+                            Title = localizer.GetString("CategoryTwoText"),
+                            Value = Constants.CategoryTwoTextString,
+                        },
+                        new AdaptiveChoice
+                        {
+                            Title = localizer.GetString("CategoryThreeText"),
+                            Value = Constants.CategoryThreeTextString,
+                        },
+                    },
+                    Id = "RequestType",
+                    Style = AdaptiveChoiceInputStyle.Compact,
                 },
                 new AdaptiveTextBlock()
                 {
