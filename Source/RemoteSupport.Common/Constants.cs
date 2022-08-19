@@ -20,9 +20,19 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Common
         public const string NormalString = "Normal";
 
         /// <summary>
-        /// Category request type text.
+        /// Category request type 1 text.
         /// </summary>
         public const string CategoryOneTextString = "Problem";
+
+        /// <summary>
+        /// Category request type 2 text.
+        /// </summary>
+        public const string CategoryTwoTextString = "Enquiry";
+
+        /// <summary>
+        /// Category request type 3 text.
+        /// </summary>
+        public const string CategoryOneTextString = "Request";
 
         /// <summary>
         /// Send request action.

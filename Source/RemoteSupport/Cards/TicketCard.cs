@@ -101,8 +101,13 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Cards
                         },
                         new AdaptiveChoice
                         {
-                            Title = localizer.GetString("UrgentText"),
-                            Value = Constants.UrgentString,
+                            Title = localizer.GetString("CategoryTwoText"),
+                            Value = Constants.CategoryTwoTextString,
+                        },
+                        new AdaptiveChoice
+                        {
+                            Title = localizer.GetString("CategoryThreeText"),
+                            Value = Constants.CategoryThreeTextString,
                         },
                     },
                     Id = "RequestType",

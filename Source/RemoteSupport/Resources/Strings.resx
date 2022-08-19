@@ -149,6 +149,14 @@
     <value>Problem</value>
     <comment>Text to show on the drop down when selected Problem.</comment>
   </data>
+  <data name="CategoryTwoText" xml:space="preserve">
+    <value>Enquiry</value>
+    <comment>Text to show on the drop down when selected Enquiry.</comment>
+  </data>
+  <data name="CategoryThreeText" xml:space="preserve">
+    <value>Request</value>
+    <comment>Text to show on the drop down when selected Request.</comment>
+  </data>
   <data name="RequestSubmittedContent" xml:space="preserve">
     <value>For reference, here's what I shared with the on-call team.</value>
     <comment>Text to show on request submitted card.</comment>
