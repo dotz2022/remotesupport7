@@ -263,9 +263,8 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Cards
                 CardHelper.GetAdaptiveCardColumnSet(localizer.GetString("RequestNumberText"), $"#{ticketDetail.RowKey}", localizer),
                 CardHelper.GetAdaptiveCardColumnSet(localizer.GetString("RequestTypeText"), ticketDetail.RequestType, localizer),
                 CardHelper.GetAdaptiveCardColumnSet(localizer.GetString("TitleDisplayText"), ticketDetail.Title, localizer),
-                
-                //CardHelper.GetAdaptiveCardColumnSet(localizer.GetString("RequestCategoryText"), ticketDetail.Title, localizer),
-                
+                CardHelper.GetAdaptiveCardColumnSet(localizer.GetString("RequestCategoryText"), ticketDetail.Title, localizer),
+
             });
             dynamicElements.AddRange(ticketAdditionalFields);
             dynamicElements.Add(CardHelper.GetAdaptiveCardColumnSet(localizer.GetString("DescriptionText"), ticketDetail.Description, localizer));

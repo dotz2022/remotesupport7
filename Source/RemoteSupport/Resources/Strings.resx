@@ -432,6 +432,7 @@
   <data name="RequestTypeText" xml:space="preserve">
     <value>Contact Option</value>
     <comment>Text to show request type in request submitted card.</comment>
+  </data>
   <data name="RequestCategoryText" xml:space="preserve">
     <value>Type of Request</value>
     <comment>Text to show category type in request submitted card.</comment>
