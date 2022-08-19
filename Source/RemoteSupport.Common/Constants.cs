@@ -32,7 +32,7 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Common
         /// <summary>
         /// Category request type 3 text.
         /// </summary>
-        public const string CategoryOneTextString = "Request";
+        public const string CategoryThreeTextString = "Request";
 
         /// <summary>
         /// Send request action.
