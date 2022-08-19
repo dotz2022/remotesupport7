@@ -144,10 +144,7 @@
   <data name="NormalText" xml:space="preserve">
     <value>Chat</value>
     <comment>Text to show on the radio button when selected normal.</comment>
-<<<<<<< HEAD
   </data>
-=======
->>>>>>> 4a79dc84329a635480fe4ad2d56ee8501e005760
   <data name="CategoryOneText" xml:space="preserve">
     <value>Problem</value>
     <comment>Text to show on the drop down when selected Problem.</comment>
