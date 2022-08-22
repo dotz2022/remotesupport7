@@ -39,6 +39,7 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Helpers
         /// RequestType - text that triggers severity action by SME.
         /// </summary>
         private const string RequestTypeText = "RequestType";
+        private const string CategoryTypeText = "CategoryType";
 
         /// <summary>
         /// Handle message activity in channel.
@@ -126,6 +127,7 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Helpers
             IMessageActivity userNotification;
             ChangeTicketStatus payload = ((JObject)message.Value).ToObject<ChangeTicketStatus>();
             payload.Action = payload.RequestType == null ? payload.Action : RequestTypeText;
+            payload.action = payload.CategoryType == null ? payload.Action : CategoryTypeText;
             logger.LogInformation($"Received submit:  action={payload.Action} ticketId={payload.TicketId}");
 
             // Get the ticket from the data store.

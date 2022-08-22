@@ -617,6 +617,15 @@ namespace Microsoft.Teams.Apps.RemoteSupport {
                 return ResourceManager.GetString("RequestTypeText", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Request type.
+        /// </summary>
+        public static string CategoryTypeText {
+            get {
+                return ResourceManager.GetString("CategoryTypeText", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Request updated.
