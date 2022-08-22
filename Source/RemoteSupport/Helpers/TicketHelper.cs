@@ -65,12 +65,13 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Helpers
 
             ticketDetail.Description = taskModuleResponseValues?.Description;
             ticketDetail.Title = taskModuleResponseValues.Title;
-            ticketDetal.Category = taskModuleResponseValues.Category;
             ticketDetail.Severity = (int)(TicketSeverity)Enum.Parse(typeof(TicketSeverity), taskModuleResponseValues.RequestType ?? TicketSeverity.Normal.ToString());
+            ticketDetail.Cat = (int)(TicketCat)Enum.Parse(typeof(TicketCat), taskModuleResponseValues.RequestType ?? TicketCat.Problem.ToString());
             ticketDetail.LastModifiedOn = ConvertToDateTimeoffset(DateTime.Now, turnContext.Activity.Timestamp.Value.Offset);
             ticketDetail.LastModifiedByName = turnContext.Activity.From.Name;
             ticketDetail.LastModifiedByObjectId = turnContext.Activity.From.AadObjectId;
             ticketDetail.RequestType = taskModuleResponseValues.RequestType ?? TicketSeverity.Normal.ToString();
+            ticketDetail.CategoryType = taskModuleResponseValues.CategoryType ?? TicketCat.Problem.ToString();
             return ticketDetail;
         }
 
@@ -107,6 +108,7 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Helpers
             ticketDetail.SmeTicketActivityId = null;
             ticketDetail.TicketStatus = (int)TicketState.Unassigned;
             ticketDetail.Severity = (int)(TicketSeverity)Enum.Parse(typeof(TicketSeverity), ticketDetail.RequestType ?? TicketSeverity.Normal.ToString());
+            ticketDetail.Cat = (int)(TicketCat)Enum.Parse(typeof(TicketCat), ticketDetail.RequestType ?? TicketCat.Problem.ToString());
             ticketDetail.AdditionalProperties = CardHelper.ValidateAdditionalTicketDetails(ticketAdditionalDetails, turnContext.Activity.Timestamp.Value.Offset);
             ticketDetail.CardId = cardId;
             ticketDetail.AssignedToName = string.Empty;

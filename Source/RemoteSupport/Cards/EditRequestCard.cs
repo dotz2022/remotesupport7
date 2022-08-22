@@ -48,7 +48,7 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Cards
             }
             else
             {
-                issueTitle = ;
+                issueTitle = ticketDetail.Title;
             }
 
             if (string.IsNullOrWhiteSpace(ticketDetail.Description))
@@ -74,6 +74,11 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Cards
 
             dynamicElements.AddRange(new List<AdaptiveElement>
             {
+                new AdaptiveTextBlock()
+                {
+                    Text = localizer.GetString("CategoryTypeText"),
+                    Spacing = AdaptiveSpacing.Medium,
+                },
                 new AdaptiveChoiceSetInput
                 {
                     Choices = new List<AdaptiveChoice>
@@ -94,7 +99,7 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Cards
                             Value = Constants.CategoryThreeTextString,
                         },
                     },
-                    Id = "RequestType",
+                    Id = "CategoryType",
                     Style = AdaptiveChoiceInputStyle.Compact,
                 },
                 new AdaptiveTextBlock()

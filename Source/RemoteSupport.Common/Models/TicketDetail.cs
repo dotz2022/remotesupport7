@@ -65,19 +65,19 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Common.Models
         [JsonProperty("Title")]
         public string Title { get; set; }
 
-                /// <summary>
-        /// Gets or sets the ticket category.
-        /// </summary>
-        [IsSearchable]
-        [JsonProperty("Category")]
-        public string Category { get; set; }
-
         /// <summary>
         /// Gets or sets the ticket description.
         /// </summary>
         [IsSearchable]
         [JsonProperty("Description")]
         public string Description { get; set; }
+
+        /// <summary>
+        /// Gets or sets the ticket category.
+        /// </summary>
+        [IsSearchable]
+        [JsonProperty("Category")]
+        public string Category { get; set; }
 
         /// <summary>
         /// Gets or sets the  UTC date and time the ticket was closed.
@@ -169,6 +169,12 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Common.Models
         public string RequestType { get; set; }
 
         /// <summary>
+        /// Gets or sets the severity of the ticketId.
+        /// </summary>
+        [JsonProperty("CategoryType")]
+        public string CategoryType { get; set; }
+
+        /// <summary>
         /// Gets or sets the conversation id of the thread pertaining to this ticket in the SME channel.
         /// </summary>
         [JsonProperty("SmeConversationId")]
@@ -189,6 +195,14 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Common.Models
         [IsFilterable]
         [JsonProperty("Severity")]
         public int? Severity { get; set; }
+
+        /// <summary>
+        /// Gets or sets status of the ticket.
+        /// </summary>
+        [IsSortable]
+        [IsFilterable]
+        [JsonProperty("Cat")]
+        public int? Cat { get; set; }
 
         /// <summary>
         /// Gets or sets the date and time on when the ticket is created on.

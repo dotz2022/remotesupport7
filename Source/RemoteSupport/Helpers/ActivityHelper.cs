@@ -176,6 +176,14 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Helpers
                     userNotification = MessageFactory.Text(localizer.GetString("RequestActionTicketUserNotification", ticketData.TicketId));
                     break;
 
+                case ChangeTicketStatus.CategoryTypeAction:
+                    ticketData.Cat = (int)(TicketCat)Enum.Parse(typeof(TicketCat), payload.CategoryType);
+                    ticketData.CategoryType = payload.CategoryType;
+                    logger.LogInformation($"Received submit:  action={payload.CategoryType} ticketId={payload.TicketId}");
+                    smeNotification = localizer.GetString("SmeSeverityStatus", ticketData.CategoryType, message.From.Name);
+                    userNotification = MessageFactory.Text(localizer.GetString("RequestActionTicketUserNotification", ticketData.TicketId));
+                    break;
+
                 default:
                     logger.LogInformation($"Unknown status command {payload.Action}", SeverityLevel.Warning);
                     return;
