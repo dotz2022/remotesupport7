@@ -66,7 +66,7 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Helpers
             ticketDetail.Description = taskModuleResponseValues?.Description;
             ticketDetail.Title = taskModuleResponseValues.Title;
             ticketDetail.Severity = (int)(TicketSeverity)Enum.Parse(typeof(TicketSeverity), taskModuleResponseValues.RequestType ?? TicketSeverity.Normal.ToString());
-            ticketDetail.Cat = (int)(TicketCat)Enum.Parse(typeof(TicketCat), taskModuleResponseValues.RequestType ?? TicketCat.Problem.ToString());
+            ticketDetail.Cat = (int)(TicketCat)Enum.Parse(typeof(TicketCat), taskModuleResponseValues.CategoryType ?? TicketCat.Problem.ToString());
             ticketDetail.LastModifiedOn = ConvertToDateTimeoffset(DateTime.Now, turnContext.Activity.Timestamp.Value.Offset);
             ticketDetail.LastModifiedByName = turnContext.Activity.From.Name;
             ticketDetail.LastModifiedByObjectId = turnContext.Activity.From.AadObjectId;

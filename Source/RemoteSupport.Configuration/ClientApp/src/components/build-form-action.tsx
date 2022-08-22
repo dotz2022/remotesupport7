@@ -45,6 +45,7 @@ class BuildYourForm extends React.Component<ITeamProps, ITeamState>
     state: ITeamState;
     bearer: string = "";
     requestType: Array<any> = [];
+    categoryType: Array<any> = [];
     inputItems: Array<any> = [];
     /**
      * Constructor to initialize component.

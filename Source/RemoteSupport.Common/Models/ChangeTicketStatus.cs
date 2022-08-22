@@ -29,7 +29,7 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Common.Models
         /// <summary>
         /// Action that relates to change in severity of an ticket.
         /// </summary>
-        public const string CategoryTypeAction = "CateogryType";
+        public const string CategoryTypeAction = "CategoryType";
 
         /// <summary>
         /// Action that assigns a ticket to the person that performed the action.
