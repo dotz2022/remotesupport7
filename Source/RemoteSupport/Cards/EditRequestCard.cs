@@ -48,7 +48,7 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Cards
             }
             else
             {
-                issueTitle = ticketDetail.Title;
+                issueTitle = ;
             }
 
             if (string.IsNullOrWhiteSpace(ticketDetail.Description))

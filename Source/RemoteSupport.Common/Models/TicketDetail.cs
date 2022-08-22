@@ -65,6 +65,13 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Common.Models
         [JsonProperty("Title")]
         public string Title { get; set; }
 
+                /// <summary>
+        /// Gets or sets the ticket category.
+        /// </summary>
+        [IsSearchable]
+        [JsonProperty("Category")]
+        public string Category { get; set; }
+
         /// <summary>
         /// Gets or sets the ticket description.
         /// </summary>
