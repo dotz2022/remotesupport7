@@ -272,9 +272,9 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Cards
                     Spacing = AdaptiveSpacing.None,
                 },
                 CardHelper.GetAdaptiveCardColumnSet(localizer.GetString("RequestNumberText"), $"#{ticketDetail.RowKey}", localizer),
+                CardHelper.GetAdaptiveCardColumnSet(localizer.GetString("CategoryTypeText"), ticketDetail.CategoryType, localizer),
                 CardHelper.GetAdaptiveCardColumnSet(localizer.GetString("RequestTypeText"), ticketDetail.RequestType, localizer),
                 CardHelper.GetAdaptiveCardColumnSet(localizer.GetString("TitleDisplayText"), ticketDetail.Title, localizer),
-                CardHelper.GetAdaptiveCardColumnSet(localizer.GetString("CategoryTypeText"), ticketDetail.CategoryType, localizer),
             });
             dynamicElements.AddRange(ticketAdditionalFields);
             dynamicElements.Add(CardHelper.GetAdaptiveCardColumnSet(localizer.GetString("DescriptionText"), ticketDetail.Description, localizer));
