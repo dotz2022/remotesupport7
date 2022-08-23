@@ -168,7 +168,7 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Cards
                     Spacing = AdaptiveSpacing.Small,
                     Value = issueTitle,
                 },
-            }); 
+            });
 
             dynamicElements.AddRange(ticketAdditionalFields);
 
