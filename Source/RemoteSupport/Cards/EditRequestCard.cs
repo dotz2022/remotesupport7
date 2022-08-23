@@ -100,6 +100,7 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Cards
                         },
                     },
                     Id = "CategoryType",
+                    Value = !string.IsNullOrEmpty(ticketDetail?.CategoryType) ? ticketDetail?.CategoryType : Constants.CategoryOneText,
                     Style = AdaptiveChoiceInputStyle.Compact,
                 },
                 new AdaptiveTextBlock()

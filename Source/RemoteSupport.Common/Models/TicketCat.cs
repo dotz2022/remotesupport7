@@ -10,13 +10,18 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Common.Models
     public enum TicketCat
     {
         /// <summary>
-        /// Represents that ticket needs to be addressed on normal priority.
+        /// Represents that ticket needs to be addressed on Problem priority.
         /// </summary>
         Problem = 0,
 
         /// <summary>
-        /// Represents that ticket needs to be addressed on high priority.
+        /// Represents that ticket needs to be addressed on Enquiry priority.
         /// </summary>
         Enquiry = 1,
+
+        /// <summary>
+        /// Represents that ticket needs to be addressed on Urgent priority.
+        /// </summary>
+        Request = 2,
     }
 }
