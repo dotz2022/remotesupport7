@@ -588,13 +588,13 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Helpers
                 case Constants.NormalString:
                     value = localizer.GetString("NormalText");
                     break;
-                case Constants.CategoryOneText:
+                case Constants.CategoryOneTextString:
                     value = localizer.GetString("CategoryOneText");
                     break;
-                case Constants.CategoryTwoText:
+                case Constants.CategoryTwoTextString:
                     value = localizer.GetString("CategoryTwoText");
                     break;
-                case Constants.CategoryThreeText:
+                case Constants.CategoryThreeTextString:
                     value = localizer.GetString("CategoryThreeText");
                     break;
                 case Constants.AssignedString:
