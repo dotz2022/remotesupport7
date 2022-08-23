@@ -126,9 +126,9 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Cards
                 },
                 new AdaptiveTextBlock()
                 {
-                    Text = localizer.GetString("TitleValidationText"),
+                    Text = localizer.GetString("CategoryValidationText"),
                     Spacing = AdaptiveSpacing.None,
-                    IsVisible = showTitleValidation,
+                    IsVisible = showCategoryValidation,
                     Color = AdaptiveTextColor.Attention,
                 },
                 new AdaptiveTextBlock()

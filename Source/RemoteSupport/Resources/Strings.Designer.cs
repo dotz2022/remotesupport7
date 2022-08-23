@@ -799,6 +799,15 @@ namespace Microsoft.Teams.Apps.RemoteSupport {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Input is required.
+        /// </summary>
+        public static string CategoryValidationText {
+            get {
+                return ResourceManager.GetString("CategoryValidationText", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Unassign.
         /// </summary>
         public static string UnassignActionChoiceTitle {
