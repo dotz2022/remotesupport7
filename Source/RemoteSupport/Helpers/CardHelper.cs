@@ -391,6 +391,7 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Helpers
             RemoveMappingElement(details, "Title");
             RemoveMappingElement(details, "Description");
             RemoveMappingElement(details, "RequestType");
+            RemoveMappingElement(details, "CategoryType");
             Dictionary<string, string> keyValuePair = new Dictionary<string, string>();
             if (details != null)
             {
@@ -586,6 +587,15 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Helpers
                     break;
                 case Constants.NormalString:
                     value = localizer.GetString("NormalText");
+                    break;
+                case Constants.CategoryOneText:
+                    value = localizer.GetString("CategoryOneText");
+                    break;
+                case Constants.CategoryTwoText:
+                    value = localizer.GetString("CategoryTwoText");
+                    break;
+                case Constants.CategoryThreeText:
+                    value = localizer.GetString("CategoryThreeText");
                     break;
                 case Constants.AssignedString:
                     value = localizer.GetString("AssignedText");

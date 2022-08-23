@@ -39,7 +39,7 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Helpers
         /// RequestType - text that triggers severity action by SME.
         /// </summary>
         private const string RequestTypeText = "RequestType";
-        
+
         /// <summary>
         /// CategoryType - text that triggers category action by SME.
         /// </summary>
