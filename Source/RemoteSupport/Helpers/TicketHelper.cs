@@ -108,7 +108,7 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Helpers
             ticketDetail.SmeTicketActivityId = null;
             ticketDetail.TicketStatus = (int)TicketState.Unassigned;
             ticketDetail.Severity = (int)(TicketSeverity)Enum.Parse(typeof(TicketSeverity), ticketDetail.RequestType ?? TicketSeverity.Normal.ToString());
-            ticketDetail.Cat = (int)(TicketCat)Enum.Parse(typeof(TicketCat), ticketDetail.RequestType ?? TicketCat.Problem.ToString());
+            ticketDetail.Cat = (int)(TicketCat)Enum.Parse(typeof(TicketCat), ticketDetail.CategoryType ?? TicketCat.Problem.ToString());
             ticketDetail.AdditionalProperties = CardHelper.ValidateAdditionalTicketDetails(ticketAdditionalDetails, turnContext.Activity.Timestamp.Value.Offset);
             ticketDetail.CardId = cardId;
             ticketDetail.AssignedToName = string.Empty;
