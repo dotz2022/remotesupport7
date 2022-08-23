@@ -45,6 +45,7 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Helpers
         /// </summary>
         private const string CategoryTypeText = "CategoryType";
 
+        /// <summary>
         /// Handle message activity in channel.
         /// </summary>
         /// <param name="message">A message in a conversation.</param>
