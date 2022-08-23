@@ -28,6 +28,7 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Helpers
             if (updatedTicketDetail == null
                 || string.IsNullOrWhiteSpace(updatedTicketDetail.Title)
                 || string.IsNullOrWhiteSpace(updatedTicketDetail.Description)
+                || string.IsNullOrWhiteSpace(updatedTicketDetail.CategoryType)
                 || updatedTicketDetail.IssueOccurredOn == null
                 || updatedTicketDetail.IssueOccurredOn == DateTimeOffset.MinValue
                 || (DateTimeOffset.Compare(updatedTicketDetail.IssueOccurredOn, DateTime.Today) > 0
