@@ -131,6 +131,7 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Helpers
             IMessageActivity userNotification;
             ChangeTicketStatus payload = ((JObject)message.Value).ToObject<ChangeTicketStatus>();
             payload.Action = payload.RequestType == null ? payload.Action : RequestTypeText;
+            payload.Action = payload.CategoryType == null ? payload.Action : CategoryTypeText;
             logger.LogInformation($"Received submit:  action={payload.Action} ticketId={payload.TicketId}");
 
             // Get the ticket from the data store.
