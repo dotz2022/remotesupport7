@@ -98,7 +98,7 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Cards
                 },
                 new AdaptiveTextBlock()
                 {
-                    Text = localizer.GetString("RequestCategoryText"),
+                    Text = localizer.GetString("CategoryTypeText"),
                     Spacing = AdaptiveSpacing.Medium,
                 },
                 new AdaptiveChoiceSetInput

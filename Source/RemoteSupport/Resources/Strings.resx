@@ -458,11 +458,11 @@
     <comment>Text to show for button action.</comment>
   </data>
   <data name="DesciptionPlaceHolderText" xml:space="preserve">
-    <value>Describe the problem and indicate a </value>
+    <value>Describe the problem. </value>
     <comment>Text to show in desciption place holder.</comment>
   </data>
   <data name="NewRequestTitle" xml:space="preserve">
-    <value>New request</value>
+    <value>New Service Request</value>
     <comment>Text to show in new request card.</comment>
   </data>
   <data name="SendRequestButtonText" xml:space="preserve">
