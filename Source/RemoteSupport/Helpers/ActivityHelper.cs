@@ -272,7 +272,7 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Helpers
                 IMessageActivity newTicketActivity = MessageFactory.Attachment(TicketCard.GetNewTicketCard(cardTemplateJson, localizer));
                 await turnContext.SendActivityAsync(newTicketActivity);
             }
-            else
+            else if (text.Inequality(localizer.GetString("New Request").ToString(), StringComparison.CurrentCultureIgnoreCase))
             {
                 await turnContext.SendActivityAsync(localizer.GetString("TextboxErrorText"));
             }
