@@ -106,6 +106,14 @@ namespace Microsoft.Teams.Apps.RemoteSupport {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kindly type New Request and input your details. Other messages typed in the chatbox will not be received.
+        /// </summary>
+        public static string TextboxErrorText {
+            get {
+                return ResourceManager.GetString("TextboxErrorText", resourceCulture);
+            }
+        }
+        /// <summary>
         ///   Looks up a localized string similar to Expert list.
         /// </summary>
         public static string BotCommandExpertList {
