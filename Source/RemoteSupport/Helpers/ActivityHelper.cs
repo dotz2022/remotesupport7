@@ -274,7 +274,8 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Helpers
             }
             else if (text.Equals(localizer.GetString("No").ToString(), StringComparison.CurrentCultureIgnoreCase))
             {
-                return;
+                await turnContext.SendActivityAsync(this.localizer.GetString("AzureStorageErrorText"));
+
             }
             else
             {
