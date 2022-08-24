@@ -29,7 +29,6 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Helpers
     using Microsoft.Teams.Apps.RemoteSupport.Models;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
-    using System.String.NotEquals;
 
     /// <summary>
     /// Class that handles Bot activity helper methods.
