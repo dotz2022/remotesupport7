@@ -131,6 +131,15 @@ namespace Microsoft.Teams.Apps.RemoteSupport {
                 return ResourceManager.GetString("BotCommandNewRequest", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to New request.
+        /// </summary>
+        public static string NewRequest {
+            get {
+                return ResourceManager.GetString("BotCommandNewRequest", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Cancel.
