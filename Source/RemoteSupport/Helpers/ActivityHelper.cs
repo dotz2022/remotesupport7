@@ -265,7 +265,7 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Helpers
 
             string text = (turnContext.Activity.Text ?? string.Empty).Trim().ToUpperInvariant();
 
-            if (text.Equals(localizer.GetString("BotCommandNewRequest"), StringComparison.CurrentCultureIgnoreCase))
+            if (!text.Equals(localizer.GetString("BotCommandNewRequest"), StringComparison.CurrentCultureIgnoreCase))
             {
                 logger.LogInformation("New request action called.");
                 CardConfigurationEntity cardTemplateJson = await cardConfigurationStorageProvider.GetConfigurationAsync();
@@ -274,7 +274,6 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Helpers
             }
             else if (text.Inequality(localizer.GetString("BotCommandNewRequest"), StringComparison.CurrentCultureIgnoreCase))
             {
-
                 await turnContext.SendActivityAsync(localizer.GetString("TextboxErrorText"));
             }
             else
