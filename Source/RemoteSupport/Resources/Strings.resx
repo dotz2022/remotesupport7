@@ -246,7 +246,7 @@
     <comment>Text to show in Request details card for Expert Team</comment>
   </data>
   <data name="SeverityButtonText" xml:space="preserve">
-    <value>Change severity</value>
+    <value>Change Mode of Contact</value>
     <comment>Text to show severity on button in request details card.</comment>
   </data>
   <data name="SmeRequestDetailText" xml:space="preserve">
@@ -346,6 +346,10 @@
     <comment>Text to show if description field is empty.</comment>
   </data>
   <data name="TitleValidationText" xml:space="preserve">
+    <value>Input is required</value>
+    <comment>Text to show if title field is empty.</comment>
+  </data>
+    <data name="CategoryValidationText" xml:space="preserve">
     <value>Input is required</value>
     <comment>Text to show if title field is empty.</comment>
   </data>
