@@ -4,7 +4,7 @@
   "description.short": "Helps request support and connect with experts quickly",
   "description.full": "Request remote support quickly. Search requests and escalate to on call experts via group chat for urgent requests.",
   "bots[0].commandLists[0].commands[0].title": "New request",
-  "bots[0].commandLists[0].commands[0].description": "Make a request to the on-call team",
+  "bots[0].commandLists[0].commands[0].description": "Make a request to the on-call team, input details in card only",
   "composeExtensions[0].commands[0].title": "Active",
   "composeExtensions[0].commands[0].description": "Search active requests",
   "composeExtensions[0].commands[0].parameters[0].title": "Search",
