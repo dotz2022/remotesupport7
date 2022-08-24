@@ -251,7 +251,7 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Helpers
             ICardConfigurationStorageProvider cardConfigurationStorageProvider,
             ITicketIdGeneratorStorageProvider ticketGenerateStorageProvider,
             ITicketDetailStorageProvider ticketDetailStorageProvider,
-            MicrosoftAppCredentialxs microsoftAppCredentials,
+            MicrosoftAppCredentials microsoftAppCredentials,
             string appBaseUrl,
             IStringLocalizer<Strings> localizer,
             CancellationToken cancellationToken)
@@ -272,7 +272,7 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Helpers
                 IMessageActivity newTicketActivity = MessageFactory.Attachment(TicketCard.GetNewTicketCard(cardTemplateJson, localizer));
                 await turnContext.SendActivityAsync(newTicketActivity);
             }
-            else if (!text.Equals(localizer.GetString("New Request").ToString(), StringComparison.CurrentCultureIgnoreCase))
+            else
             {
                 await turnContext.SendActivityAsync(localizer.GetString("TextboxErrorText"));
             }
