@@ -123,6 +123,7 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Cards
                     },
                     Id = "CategoryType",
                     Style = AdaptiveChoiceInputStyle.Compact,
+                    Value = issueCategory
                 },
                 new AdaptiveTextBlock()
                 {
