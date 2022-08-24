@@ -89,7 +89,7 @@
           "commands": [
             {
               "title": "New request",
-              "description": "Make a request to the on-call team, input details in card only"
+              "description": "Make a request to the on-call team"
             }
           ]
         }
