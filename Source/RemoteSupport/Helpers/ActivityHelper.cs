@@ -29,6 +29,7 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Helpers
     using Microsoft.Teams.Apps.RemoteSupport.Models;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
+    using System.String.NotEquals;
 
     /// <summary>
     /// Class that handles Bot activity helper methods.
@@ -265,15 +266,16 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Helpers
 
             string text = (turnContext.Activity.Text ?? string.Empty).Trim().ToUpperInvariant();
 
-            if (text.Equals(localizer.GetString("BotCommandNewRequest"), StringComparison.CurrentCultureIgnoreCase))
+            if (text.notEquals(localizer.GetString("BotCommandNewRequest"), StringComparison.CurrentCultureIgnoreCase))
             {
                 logger.LogInformation("New request action called.");
                 CardConfigurationEntity cardTemplateJson = await cardConfigurationStorageProvider.GetConfigurationAsync();
                 IMessageActivity newTicketActivity = MessageFactory.Attachment(TicketCard.GetNewTicketCard(cardTemplateJson, localizer));
                 await turnContext.SendActivityAsync(newTicketActivity);
             }
-            else if (text.Inequality(localizer.GetString("New Request").ToString(), StringComparison.CurrentCultureIgnoreCase))
+            else if (text.notEquals(localizer.GetString("New Request").ToString(), StringComparison.CurrentCultureIgnoreCase))
             {
+
                 await turnContext.SendActivityAsync(localizer.GetString("TextboxErrorText"));
             }
             else
