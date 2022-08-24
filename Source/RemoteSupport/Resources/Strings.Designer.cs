@@ -113,6 +113,7 @@ namespace Microsoft.Teams.Apps.RemoteSupport {
                 return ResourceManager.GetString("TextboxErrorText", resourceCulture);
             }
         }
+        
         /// <summary>
         ///   Looks up a localized string similar to Expert list.
         /// </summary>
