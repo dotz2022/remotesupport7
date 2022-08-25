@@ -458,7 +458,7 @@
     <comment>Text to show error when the request is not save in the azure storage.</comment>
   </data>
   <data name="TextboxErrorText" xml:space="preserve">
-    <value>Kindly type New Request and input your details. Other messages typed in the chatbox will not be received.</value>
+    <value>Kindly type "New Request" and input your details. Other messages typed in the chatbox will not be received.</value>
     <comment>Text to show error when staff types in the chatbox.</comment>
   </data>  
   <data name="CancelButtonText" xml:space="preserve">
