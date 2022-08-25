@@ -574,7 +574,7 @@ namespace Microsoft.Teams.Apps.RemoteSupport {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The support team changed the severity level on your request #{0}..
+        ///   Looks up a localized string similar to The support team changed the contact mode on your request #{0}..
         /// </summary>
         public static string RequestActionTicketUserNotification {
             get {
@@ -727,7 +727,7 @@ namespace Microsoft.Teams.Apps.RemoteSupport {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Severity changed to {0} by {1}..
+        ///   Looks up a localized string similar to Contact mode changed to {0} by {1}..
         /// </summary>
         public static string SmeSeverityStatus {
             get {

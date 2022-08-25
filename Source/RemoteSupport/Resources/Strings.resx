@@ -274,8 +274,8 @@
     <comment>Text to show notification as request is closed to SME Users.</comment>
   </data>
   <data name="SmeSeverityStatus" xml:space="preserve">
-    <value>Severity changed to {0} by {1}.</value>
-    <comment>Text to show notification when request changes severity from SME Users.</comment>
+    <value>Contact mode changed to {0} by {1}.</value>
+    <comment>Text to show notification when request changes contact from SME Users.</comment>
   </data>
   <data name="SmeUnassignedStatus" xml:space="preserve">
     <value>Status changed to unassigned by {0}.</value>
@@ -334,7 +334,7 @@
     <comment>Text to show user when status of ticket is reopened by Expert team member.</comment>
   </data>
   <data name="RequestActionTicketUserNotification" xml:space="preserve">
-    <value>The severity level on your request #{0} has been updated.</value>
+    <value>The contact mode on your request #{0} has been updated.</value>
     <comment>Text to show user when severity of ticket is changed by Expert team member.</comment>
   </data>
   <data name="DateValidationText" xml:space="preserve">
