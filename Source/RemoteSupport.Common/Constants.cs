@@ -122,7 +122,7 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Common
         /// <summary>
         /// Urgent request type text.
         /// </summary>
-        public const string UrgentString = "Call back";
+        public const string UrgentString = "Callback";
 
         /// <summary>
         /// Cancel command.
