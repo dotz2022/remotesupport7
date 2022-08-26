@@ -20,7 +20,7 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Common.Models
         Enquiry = 1,
 
         /// <summary>
-        /// Represents that ticket needs to be addressed on Urgent priority.
+        /// Represents that ticket needs to be addressed on Request priority.
         /// </summary>
         Request = 2,
     }
