@@ -92,8 +92,8 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Common.Providers
             SearchParameters searchParameters = new SearchParameters();
             switch (searchScope)
             {
-                case TicketSearchScope.UrgentTickets:
-                    searchParameters.Filter = $"Severity eq {(int)TicketSeverity.Urgent}";
+                case TicketSearchScope.CallbackTickets:
+                    searchParameters.Filter = $"Severity eq {(int)TicketSeverity.Callback}";
                     searchParameters.OrderBy = new[] { "Timestamp desc" };
                     break;
 
