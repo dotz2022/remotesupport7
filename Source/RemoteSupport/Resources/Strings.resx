@@ -466,7 +466,7 @@
     <comment>Text to show for button action.</comment>
   </data>
   <data name="DesciptionPlaceHolderText" xml:space="preserve">
-    <value>Describe the problem. </value>
+    <value>Describe the problem </value>
     <comment>Text to show in desciption place holder.</comment>
   </data>
   <data name="NewRequestTitle" xml:space="preserve">
@@ -482,7 +482,7 @@
     <comment>Text to show in card.</comment>
   </data>
   <data name="TitlePlaceHolderText" xml:space="preserve">
-    <value>Provide contact number for call back.</value>
+    <value>Input N/A if Chat is selected</value>
     <comment>Text to show in title place holder.</comment>
   </data>
   <data name="SessionExpired" xml:space="preserve">
