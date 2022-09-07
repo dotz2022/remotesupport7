@@ -46,14 +46,14 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Cards
             if (showValidationMessage)
             {
                 ticketDetail = ticketDetail ?? throw new ArgumentNullException(nameof(ticketDetail));
-                if (string.IsNullOrWhiteSpace(ticketDetail.Title))
-                {
-                    showTitleValidation = true;
-                }
-                else
-                {
-                    issueTitle = ticketDetail.Title;
-                }
+                // if (string.IsNullOrWhiteSpace(ticketDetail.Title))
+                // {
+                //     showTitleValidation = true;
+                // }
+                // else
+                // {
+                //     issueTitle = ticketDetail.Title;
+                // }
 
                 if (string.IsNullOrWhiteSpace(ticketDetail.Description))
                 {
