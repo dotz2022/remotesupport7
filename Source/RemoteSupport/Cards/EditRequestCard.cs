@@ -42,15 +42,6 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Cards
             bool showDescriptionValidation = false;
             bool showDateValidation = false;
 
-            // if (string.IsNullOrWhiteSpace(ticketDetail.Title))
-            // {
-            //     showTitleValidation = true;
-            // }
-            // else
-            // {
-            //     issueTitle = ticketDetail.Title;
-            // }
-
             if (string.IsNullOrWhiteSpace(ticketDetail.Description))
             {
                 showDescriptionValidation = true;
