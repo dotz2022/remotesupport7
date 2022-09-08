@@ -146,15 +146,15 @@
     <comment>Text to show on the radio button when selected normal.</comment>
   </data>
   <data name="CategoryOneText" xml:space="preserve">
-    <value>Problem - &lt;p style="color:#95A5A6;"&gt;to fix an item that was working before &lt;/p&gt;</value>
+    <value>Problem - to fix an item that was working before</value>
     <comment>Text to show on the drop down when selected Problem.</comment>
   </data>
   <data name="CategoryTwoText" xml:space="preserve">
-    <value>Enquiry - &lt;p style="color:#95A5A6;"&gt;to ask for information &lt;/p&gt;</value>
+    <value>Enquiry - to ask for information</value>
     <comment>Text to show on the drop down when selected Enquiry.</comment>
   </data>
   <data name="CategoryThreeText" xml:space="preserve">
-    <value>Request - &lt;p style="color:#95A5A6;"&gt;to install, modify, add or create &lt;/p&gt;</value>
+    <value>Request - to install, modify, add or create</value>
     <comment>Text to show on the drop down when selected Request.</comment>
   </data>
   <data name="RequestSubmittedContent" xml:space="preserve">

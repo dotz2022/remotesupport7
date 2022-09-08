@@ -64,15 +64,6 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Cards
                     issueDescription = ticketDetail.Description;
                 }
 
-                if (string.IsNullOrWhiteSpace(ticketDetail.Description))
-                {
-                    showDescriptionValidation = true;
-                }
-                else
-                {
-                    issueDescription = ticketDetail.Description;
-                }
-
                 if (string.IsNullOrWhiteSpace(ticketDetail.CategoryType))
                 {
                     showCategoryValidation = true;
@@ -198,6 +189,13 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Cards
                     Placeholder = localizer.GetString("TitlePlaceHolderText"),
                     Spacing = AdaptiveSpacing.Small,
                     Value = issueTitle,
+                },
+                new AdaptiveTextBlock()
+                {
+                    Text = localizer.GetString("TitleValidationText"),
+                    Spacing = AdaptiveSpacing.None,
+                    IsVisible = showTitleValidation,
+                    Color = AdaptiveTextColor.Attention,
                 },
             });
 
