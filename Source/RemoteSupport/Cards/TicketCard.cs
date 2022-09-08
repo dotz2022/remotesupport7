@@ -54,6 +54,7 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Cards
                 {
                     issueTitle = ticketDetail.Title;
                 }
+
                 if (string.IsNullOrWhiteSpace(ticketDetail.Description))
                 {
                     showDescriptionValidation = true;
@@ -62,6 +63,7 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Cards
                 {
                     issueDescription = ticketDetail.Description;
                 }
+                
                 if (string.IsNullOrWhiteSpace(ticketDetail.Description))
                 {
                     showDescriptionValidation = true;
