@@ -63,7 +63,7 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Cards
                 {
                     issueDescription = ticketDetail.Description;
                 }
-                
+                              
                 if (string.IsNullOrWhiteSpace(ticketDetail.Description))
                 {
                     showDescriptionValidation = true;
