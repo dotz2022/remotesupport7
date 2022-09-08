@@ -38,6 +38,7 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Cards
 
             var dynamicElements = new List<AdaptiveElement>();
             var ticketAdditionalFields = new List<AdaptiveElement>();
+            bool showTitleValidation = false;
             bool showDescriptionValidation = false;
             bool showCategoryValidation = false;
             bool showDateValidation = false;
@@ -45,6 +46,24 @@ namespace Microsoft.Teams.Apps.RemoteSupport.Cards
             if (showValidationMessage)
             {
                 ticketDetail = ticketDetail ?? throw new ArgumentNullException(nameof(ticketDetail));
+                if (string.IsNullOrWhiteSpace(ticketDetail.Title))
+                {
+                    showTitleValidation = true;
+                }
+                else
+                {
+                    issueTitle = ticketDetail.Title;
+                }
+                
+                if (string.IsNullOrWhiteSpace(ticketDetail.Description))
+                {
+                    showDescriptionValidation = true;
+                }
+                else
+                {
+                    issueDescription = ticketDetail.Description;
+                }
+
                 if (string.IsNullOrWhiteSpace(ticketDetail.Description))
                 {
                     showDescriptionValidation = true;
